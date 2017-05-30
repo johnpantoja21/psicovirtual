@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte_PagosVsSeguimiento" language="groovy" pageWidth="1800" pageHeight="1000" columnWidth="1800" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e95a540f-47ac-487e-baaf-fed5d68d86ed">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="FECHA_INICIO" class="java.util.Date"/>
+	<parameter name="FECHA_FIN" class="java.util.Date"/>
+	<parameter name="USUARIOS" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT TPAGOS_LIQUIDACION.id_liqui,valor,cedulagirador,
+(SELECT rtrim (xmlagg (xmlelement (e,gestion || '-----')).extract ('//text()'), '-----') FROM SEGUIMIENTO WHERE UPPER(USUARIO) IN
+( $P!{USUARIOS})
+
+AND TRUNC(COMPROMISO_PAGO)>=TRUNC($P{FECHA_INICIO})
+AND TRUNC(COMPROMISO_PAGO) <=TRUNC($P{FECHA_FIN}) and cedula=cedulagirador) as gestion
+,
+(SELECT rtrim (xmlagg (xmlelement (e,usuario || '-----')).extract ('//text()'), '-----') FROM SEGUIMIENTO WHERE UPPER(USUARIO) IN
+( $P!{USUARIOS})
+
+
+AND TRUNC(COMPROMISO_PAGO)>=$P{FECHA_INICIO}
+AND TRUNC(COMPROMISO_PAGO) <=$P{FECHA_FIN} and cedula=cedulagirador) as usuario,
+
+(SELECT rtrim (xmlagg (xmlelement (e,DIA_CONTACTO || '-----')).extract ('//text()'), '-----') FROM SEGUIMIENTO WHERE UPPER(USUARIO) IN
+( $P!{USUARIOS})
+
+AND TRUNC(COMPROMISO_PAGO)>=TRUNC($P{FECHA_INICIO})
+AND TRUNC(COMPROMISO_PAGO) <=TRUNC($P{FECHA_FIN})  and cedula=cedulagirador) as DIA_CONTACTO,
+(SELECT rtrim (xmlagg (xmlelement (e,COMPROMISO_PAGO || '-----')).extract ('//text()'), '-----') FROM SEGUIMIENTO WHERE UPPER(USUARIO) IN
+( $P!{USUARIOS})
+
+
+AND TRUNC(COMPROMISO_PAGO)>=TRUNC($P{FECHA_INICIO})
+AND TRUNC(COMPROMISO_PAGO) <=TRUNC($P{FECHA_FIN}) and cedula=cedulagirador) as COMPROMISO_PAGO
+
+
+
+FROM TPAGOS_LIQUIDACION, TPAGOS_PAGO, SEGUIMIENTO
+WHERE TPAGOS_LIQUIDACION.CEDULAGIRADOR=SEGUIMIENTO.CEDULA
+AND TPAGOS_LIQUIDACION.ID_LIQUI=TPAGOS_PAGO.ID_LIQUI
+AND TPAGOS_PAGO.FECHA_PAGO >=TRUNC($P{FECHA_INICIO})
+AND TPAGOS_PAGO.FECHA_PAGO <=TRUNC($P{FECHA_FIN})
+AND  CEDULAGIRADOR IN(SELECT CEDULA FROM SEGUIMIENTO WHERE UPPER(USUARIO) IN
+( $P!{USUARIOS})
+
+AND TRUNC(SEGUIMIENTO.COMPROMISO_PAGO)>=TRUNC($P{FECHA_INICIO})
+AND TRUNC(SEGUIMIENTO.COMPROMISO_PAGO) <=TRUNC($P{FECHA_FIN})
+)
+GROUP BY   TPAGOS_LIQUIDACION.id_liqui,valor,cedulagirador]]>
+	</queryString>
+	<field name="ID_LIQUI" class="java.math.BigDecimal"/>
+	<field name="VALOR" class="java.math.BigDecimal"/>
+	<field name="CEDULAGIRADOR" class="java.math.BigDecimal"/>
+	<field name="GESTION" class="java.lang.String"/>
+	<field name="USUARIO" class="java.lang.String"/>
+	<field name="DIA_CONTACTO" class="java.lang.String"/>
+	<field name="COMPROMISO_PAGO" class="java.lang.String"/>
+	<title>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="2742385b-3893-4be8-bea2-9705964fdb90" x="0" y="0" width="251" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID_LIQUI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dbe8e53f-84e2-4a96-a971-d7e768466471" x="251" y="0" width="251" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8f4f7d61-3980-4411-ac7d-4b3724bad2c5" x="502" y="0" width="251" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CEDULAGIRADOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c8983591-4025-4d75-b8cd-319f20a3ecb5" x="753" y="0" width="251" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[GESTION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="97890508-08df-4634-b44e-f7aa52f3d4d9" x="1004" y="0" width="251" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[USUARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0e04cb89-ea5e-45b4-ab8c-96dfa1ad68e1" x="1255" y="0" width="251" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIA_CONTACTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e0655608-3719-4870-9e7e-99cf4abbf146" x="1506" y="0" width="294" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMPROMISO_PAGO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="60" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="1c640faf-2e89-43e5-a062-588196f5e20c" stretchType="RelativeToTallestObject" x="0" y="0" width="251" height="60"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ID_LIQUI}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="4e9a5346-d337-4b8e-9690-f6b5513b9f0d" stretchType="RelativeToTallestObject" x="251" y="0" width="251" height="60"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{VALOR}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="39c4d50f-8b5d-479f-a4ac-dd8321051696" stretchType="RelativeToTallestObject" x="502" y="0" width="251" height="60"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{CEDULAGIRADOR}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="f2dc21e1-1ba0-480a-8a53-2112e86a6b8b" stretchType="RelativeToTallestObject" x="753" y="0" width="251" height="60"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{GESTION}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="6f0dffe1-87e8-4b22-9b5f-006cf78e7683" stretchType="RelativeToTallestObject" x="1004" y="0" width="251" height="60"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{USUARIO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="46522f65-2d89-40c2-89f8-9030cdba2479" stretchType="RelativeToTallestObject" x="1255" y="0" width="251" height="60"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{DIA_CONTACTO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="89eb3522-7f67-4fe0-94ba-e169babeaa2b" stretchType="RelativeToTallestObject" x="1506" y="0" width="294" height="60"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{COMPROMISO_PAGO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

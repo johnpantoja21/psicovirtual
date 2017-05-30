@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteMemosInactivosConSaldoUnoEE" language="groovy" pageWidth="665" pageHeight="842" columnWidth="625" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2a0f5e33-1049-4569-b54d-8c42c83ef987">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="603"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="FECHA_INICIAL" class="java.util.Date"/>
+	<parameter name="FECHA_FINAL" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[select m.numero AS NUMERO_MEMO ,m.valor AS VALOR_MEMO,  sum(a.a_capital)  as TOTAL_ABONOS , (m.valor-sum(a.a_capital)) as SALDO_COBRANZAS, F_SALDO_UNOOEE_MEMO(m.numero) as SALDO_UNOEE,
+(m.valor-sum(a.a_capital))-F_SALDO_UNOOEE_MEMO(m.numero) as DIFERENCIA_SALDO
+from memos m , table(f_abonos_memo(m.numero)) a
+where id_estado='2'
+and trunc(fecmemo) >= $P{FECHA_INICIAL}
+and trunc(fecmemo) <= $P{FECHA_FINAL}
+AND m.NOTA !=3
+and (m.TRANSFER is null or m.transfer = 2  or m.transfer = 0)
+AND F_SALDO_UNOOEE_MEMO(m.numero)>0
+group by m.numero ,m.valor]]>
+	</queryString>
+	<field name="NUMERO_MEMO" class="java.math.BigDecimal"/>
+	<field name="VALOR_MEMO" class="java.math.BigDecimal"/>
+	<field name="TOTAL_ABONOS" class="java.math.BigDecimal"/>
+	<field name="SALDO_COBRANZAS" class="java.math.BigDecimal"/>
+	<field name="SALDO_UNOEE" class="java.math.BigDecimal"/>
+	<field name="DIFERENCIA_SALDO" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="8366ce1c-0b0b-475f-8679-ee822a669d40" x="0" y="1" width="625" height="29"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE MEMOS INACTIVOS CON SALDO EN UNOEE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d4febf90-740c-42ea-acce-d49ae33341a7" x="0" y="30" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NUMERO MEMO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ef035192-4dc8-4c68-96f1-5e6a153bbd36" x="100" y="30" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR MEMO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="79f25c79-5844-4b53-ab24-d321707fbe5f" x="200" y="30" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL ABONOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="72d638db-93a0-4031-af57-06a9acb9b08c" x="300" y="30" width="116" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[SALDO COBRANZAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d395edb5-85ad-4b41-a38f-24cb66da8388" x="416" y="30" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[SALDO UNOEE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2d0782b8-b950-4c43-8935-ad57d3b04a5f" x="516" y="30" width="109" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIFERENCIA SALDO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement uuid="a7115bd9-5da6-4afa-992a-a06ab44e4812" x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{NUMERO_MEMO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0ea3edef-85a1-49f0-9c31-521001de5905" x="100" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{VALOR_MEMO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d4f3f3e3-bb6a-488f-a9ec-3057fa07417d" x="200" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{TOTAL_ABONOS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b98e87b6-9c76-4255-91a7-85d2bb7fbcd2" x="300" y="0" width="116" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{SALDO_COBRANZAS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="fb9bf0c1-1a02-4ef7-a482-a56c23c645c7" x="416" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{SALDO_UNOEE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="42aa05d6-d531-4271-8af4-68f413b9d6f4" x="516" y="0" width="109" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{DIFERENCIA_SALDO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

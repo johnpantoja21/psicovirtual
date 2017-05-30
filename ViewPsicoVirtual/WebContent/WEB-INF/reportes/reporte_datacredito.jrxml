@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte_datacredito" language="groovy" pageWidth="1800" pageHeight="1000" columnWidth="1760" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e95a540f-47ac-487e-baaf-fed5d68d86ed">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cedula" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT ID_CODA,ID_GIRA,ID_ESCO,CAST(fecha_consulta AS DATE) as fecha_consulta,
+CAST(VIGENTE_HASTA AS DATE) as vigente_hasta, vigencia_disminuida, campo_1,
+tipo_respuesta, user_id, masivo, producto, apellidodigitado, id_prod_web,
+cod_afiliado,xml
+FROM Tdata_Consulta_Datacredito
+WHERE Id_Gira =
+  (SELECT Id_Gira
+  FROM tdata_girador
+  WHERE  No_Documento = to_char($P{cedula})
+  )
+ORDER BY fecha_consulta DESC]]>
+	</queryString>
+	<field name="ID_CODA" class="java.math.BigDecimal"/>
+	<field name="ID_GIRA" class="java.math.BigDecimal"/>
+	<field name="ID_ESCO" class="java.math.BigDecimal"/>
+	<field name="FECHA_CONSULTA" class="java.sql.Timestamp"/>
+	<field name="VIGENTE_HASTA" class="java.sql.Timestamp"/>
+	<field name="VIGENCIA_DISMINUIDA" class="java.lang.String"/>
+	<field name="CAMPO_1" class="java.lang.String"/>
+	<field name="TIPO_RESPUESTA" class="java.lang.String"/>
+	<field name="USER_ID" class="java.lang.String"/>
+	<field name="MASIVO" class="java.lang.String"/>
+	<field name="PRODUCTO" class="java.lang.String"/>
+	<field name="APELLIDODIGITADO" class="java.lang.String"/>
+	<field name="ID_PROD_WEB" class="java.math.BigDecimal"/>
+	<field name="COD_AFILIADO" class="java.lang.String"/>
+	<field name="XML" class="java.lang.String"/>
+	<title>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="8ec2296b-2ded-420c-a00f-d3bdafc70a47" x="0" y="0" width="1360" height="30" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[REPORTE DATACREDITO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="28">
+			<staticText>
+				<reportElement uuid="79386b66-4aa1-4637-a019-e416c149e68b" x="0" y="0" width="94" height="20"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID CODA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6f90981d-7f7c-41bb-9117-d21e54838b83" x="94" y="0" width="94" height="20"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID GIRADOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6c54e0c7-c0ec-4f78-92d4-4b68c845912e" x="188" y="0" width="94" height="20"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID ESCO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="26c4a41c-4749-4b41-ba7f-eb9ff56c9d7f" x="282" y="0" width="94" height="20"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA CONSULTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4ff6865b-edd9-4177-aef1-a3a9dec54d4a" x="376" y="0" width="114" height="20"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VIGENTE HASTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="79ab30fa-78e2-46cb-b027-f3f93c05e47c" x="490" y="0" width="94" height="20"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VIGENCIA DISMINUIDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6e65fec1-1491-4e0e-9b95-66b99ae2cf26" x="584" y="0" width="94" height="20"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CAMPO_1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e78704dd-ec73-41eb-a1d8-f8f0d3c5dfa7" x="678" y="0" width="206" height="20"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPO RESPUESTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7679c922-90ab-45b2-ac46-44e0d4a16ce5" x="884" y="0" width="94" height="20"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID USUARIOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d58e348d-508d-43f8-b81d-95023a3e9fa7" x="978" y="0" width="94" height="20"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MASIVO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="aabfd1c9-42ca-4a0d-bd73-2c3d8378ebba" x="1072" y="0" width="94" height="20"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRODUCTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="65fe9a25-033f-452b-a26c-96735fffa076" x="1166" y="0" width="94" height="20"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[APELLIDO DIGITADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a64e51b8-fa14-4fa2-842d-967943bb06b1" x="1260" y="0" width="94" height="20"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID PRODUCTO WEB]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2a983056-ea53-4968-aa28-18065d76192a" x="1354" y="0" width="94" height="20"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COD AFILIADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3edc9bb3-f1ad-473f-8b29-3e12da9dd3b4" x="1448" y="0" width="94" height="20"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[XML]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="6d792941-deb7-43fb-9297-71b31d39ac92" stretchType="RelativeToBandHeight" x="0" y="11" width="94" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ID_CODA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="e6e55853-9e6c-4568-b6db-69cb7757cf7f" stretchType="RelativeToBandHeight" x="94" y="11" width="94" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ID_GIRA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d0e2c5e5-b39f-4e82-a19e-0ef773b5729c" stretchType="RelativeToBandHeight" x="188" y="11" width="94" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ID_ESCO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="26823053-3d75-4d37-8ebf-29d710fa0c0a" stretchType="RelativeToBandHeight" x="282" y="11" width="94" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{FECHA_CONSULTA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="bcd847eb-4663-4d4d-a055-89744c2a16dd" stretchType="RelativeToBandHeight" x="376" y="11" width="114" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{VIGENTE_HASTA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="6f093372-a632-47c8-8028-ab392edc7469" stretchType="RelativeToBandHeight" x="490" y="11" width="94" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{VIGENCIA_DISMINUIDA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="7eb106a0-62ef-495a-84c3-eb4e90943103" stretchType="RelativeToBandHeight" x="584" y="11" width="94" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{CAMPO_1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="5bb85bb5-c75a-4235-86be-2a5f12254b1c" stretchType="RelativeToBandHeight" x="678" y="11" width="206" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{TIPO_RESPUESTA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="bea546f8-a453-46b6-9e4c-d51ac5fe7893" stretchType="RelativeToBandHeight" x="884" y="11" width="94" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{USER_ID}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="3b040aea-8170-4a7a-8a5a-70fff9ab3d2d" stretchType="RelativeToBandHeight" x="978" y="11" width="94" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{MASIVO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="a47a7fbe-349a-44f4-964c-305ee7be32a8" stretchType="RelativeToBandHeight" x="1072" y="11" width="94" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{PRODUCTO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="45a37e46-f299-4ab3-a5d6-db6ca15a8cb7" stretchType="RelativeToBandHeight" x="1166" y="11" width="94" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{APELLIDODIGITADO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="0fe74ac5-24f1-4ee7-a3e2-4b3216bc3593" stretchType="RelativeToBandHeight" x="1260" y="11" width="94" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ID_PROD_WEB}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="ee45ea2d-8de0-4d97-9bc0-4b95bb94c498" stretchType="RelativeToBandHeight" x="1354" y="11" width="94" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{COD_AFILIADO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="cc0aaa62-c59e-4912-8a2a-dafe883f999d" stretchType="RelativeToBandHeight" x="1448" y="11" width="94" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{XML}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,162 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/view/menu/template.xhtml">
+
+
+	<ui:define name="content">
+		<h:form id="formPrincipal">
+
+
+			<h2
+				style="text-align: center; font-size: 50px; color: inherit; font-family: 'BebasNeueRegular', Arial, sans-serif;">
+				Busqueda de Psicologos</h2>
+
+
+
+			<p:growl id="messages1" sticky="true" />
+
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<p:graphicImage library="images" name="ajax-loader.gif" />
+			</p:dialog>
+			<div>
+
+				<p:panel id="datos">
+
+					<div class="ui-g">
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Nombre Psicologo : " />
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText  id="d1" maxlength="100"
+								value="#{MBPsicologos.nombreBusqueda}">
+							</p:inputText>
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Servicios : " />
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText  id="d2" maxlength="100"
+								value="#{MBPsicologos.servicioBusqueda}">
+							</p:inputText>
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:commandButton value="Buscar" style="width: 220px;"
+								onstart="PF('statusDialog').show();  " update="formPrincipal,messages1"
+								oncomplete="PF('statusDialog').hide();"
+								action="#{MBPsicologos.buscar}" styleClass="btn btn-blue"
+								id="buscar">
+							</p:commandButton>
+
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3"></div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3"></div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3"></div>
+					</div>
+
+					<br></br>
+					<br></br>
+
+					<p:repeat  value="#{MBPsicologos.listaPsicologos}" var="dato">
+
+
+						<div class="ui-g">
+							<div class="ui-g-12 ui-md-6 ui-lg-3">
+
+
+
+
+
+								<p:graphicImage width="200" library="fotos"
+									name="#{dato.usuario}.jpg" />
+
+							</div>
+
+							<div class="ui-g-12 ui-md-6 ui-lg-6">
+								<p:outputPanel style="text-align: left;">
+									<h:panelGrid columns="1" cellpadding="5"
+										style="text-align: left;">
+
+										<h:outputText value="#{dato.nombre} #{dato.apellidos}"
+											style="font-weight: bold" />
+
+
+										<h:outputText value="#{dato.descripcionPerfil}"
+											style="font-weight: bold" />
+
+										<p:dataList style="color:red" value="#{dato.servicios}"
+											var="dato2" type="ordered">
+											<f:facet name="header">
+      								      Servicios
+      									 </f:facet>
+     								   #{dato2.nombreServicio}
+    								</p:dataList>
+
+									</h:panelGrid>
+								</p:outputPanel>
+							</div>
+							<div class="ui-g-12 ui-md-6 ui-lg-3">
+								<p:outputPanel style="text-align: right;">
+									<h:panelGrid columns="1" cellpadding="5">
+
+										<p:commandButton value="Pre Consulta" style="width: 220px;"
+											onstart="PF('statusDialog').show();  "
+											oncomplete="PF('statusDialog').hide();"
+											action="#{MBAgendarCita.guardarCita}"
+											styleClass="btn btn-blue" id="guardar">
+										</p:commandButton>
+										<p:commandButton value="Servicios" style="width: 220px;"
+											onstart="PF('statusDialog').show();  "
+											oncomplete="PF('statusDialog').hide();"
+											action="#{MBAgendarCita.guardarCita}"
+											styleClass="btn btn-blue" id="guardar1">
+
+										</p:commandButton>
+										<p:commandButton value="Mas Información" style="width: 220px;"
+											onstart="PF('statusDialog').show();  "
+											oncomplete="PF('statusDialog').hide();"
+											action="#{MBAgendarCita.guardarCita}"
+											styleClass="btn btn-blue" id="guardar2">
+										</p:commandButton>
+
+									</h:panelGrid>
+								</p:outputPanel>
+							</div>
+						</div>
+
+						<hr />
+					</p:repeat>
+
+
+
+
+
+
+
+
+				</p:panel>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+		</h:form>
+
+
+
+
+	</ui:define>
+
+</ui:composition>

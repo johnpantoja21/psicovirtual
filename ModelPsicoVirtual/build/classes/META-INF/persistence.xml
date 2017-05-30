@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="psicovirtual">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<jta-data-source>jdbc/psicovirtualDS</jta-data-source>
+		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.Cita</class>
+		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.ClientesPsicologo</class>
+		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.Comentario</class>
+		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.EstadoCita</class>
+		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.EstadoCliente</class>
+		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.Festivo</class>
+		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.SeccionFamilia</class>
+		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.SeccionHistorial</class>
+		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.Seguridad</class>
+		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.Servicio</class>
+		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.Tema</class>
+		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.TipoCita</class>
+		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.TipoUsuario</class>
+		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.TiposServicio</class>
+		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.Usuario</class>
+		<properties>
+			<property name="eclipselink.target-server" value="SunAS9" />
+		</properties>
+	</persistence-unit>
+
+
+
+
+
+</persistence>

@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<f:view contentType="text/html" id="fview">
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Page template with PrimeFaces</title>
+	<ui:debug />
+	<f:metadata>
+		<ui:insert name="metadata" />
+	</f:metadata>
+
+	<h:head>
+	<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+	<h:outputStylesheet library="css" name="default.css" />
+	<h:outputScript library="js" name="validaciones.js" />
+
+
+		<h:form id="mainForm1">
+			<p:menubar>
+				<p:submenu label="Opciones" icon="ui-icon-document">
+					<p:submenu label="Gestion" icon="ui-icon-contact">
+						<p:menuitem value="Estado Cliente"
+							url="/view/gestion/estadoCliente.xhtml" />
+						<p:menuitem value="Estado Cita"
+							url="/view/gestion/estadoCita.xhtml" />
+						<p:menuitem value="Temas" url="/view/gestion/tema.xhtml" />
+						<p:menuitem value="Tipo Cita" url="/view/gestion/tipoCita.xhtml" />
+						<p:menuitem value="Tipos Servicio"
+							url="/view/gestion/tiposServicio.xhtml" />
+						<p:menuitem value="Tipo Usuario"
+							url="/view/gestion/tiposUsuario.xhtml" />
+					</p:submenu>
+					<p:submenu label="Usuarios" icon="ui-icon-contact">
+
+						<p:menuitem value="Registro Usuarios"
+							url="/view/usuarios/registroUsuarios.xhtml" />
+					</p:submenu>
+						<p:submenu label="Psicologos" icon="ui-icon-contact">
+
+						<p:menuitem value="Busqueda Psicologos"
+							url="/view/gestion/busquedaPsicologos.xhtml" />
+					</p:submenu>
+					
+					
+					
+					<p:submenu label="Citas" icon="ui-icon-contact">
+
+						<p:menuitem value="Agendar Citas"
+							url="/view/gestion/agendarCita.xhtml" />
+					</p:submenu>
+
+				</p:submenu>
+
+
+
+
+
+
+
+
+				<f:facet name="options">
+
+					<p:commandButton value="Cerrar Sesión"
+						actionListener="#{MBLogin.cerrarSesion}" icon="ui-icon-extlink" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+
+
+
+	</h:head>
+
+	<h:body>
+
+
+
+		<ui:insert name="content" />
+
+
+	</h:body>
+
+</f:view>
+</html>

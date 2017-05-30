@@ -1,0 +1,207 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/view/menu/template.xhtml">
+
+
+	<ui:define name="content">
+		<h:form id="formPrincipal">
+
+
+			<h2
+				style="text-align: center; font-size: 50px; color: inherit; font-family: 'BebasNeueRegular', Arial, sans-serif;">
+				Agendar Cita</h2>
+
+
+
+			<p:growl id="messages1" sticky="true" />
+
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<p:graphicImage library="images" name="ajax-loader.gif" />
+			</p:dialog>
+			<div align="left">
+
+				<p:panel id="datos">
+
+
+					<p:dataTable id="tbl" var="dato" selectionMode="single"
+						selection="#{MBAgendarCita.clientesPsicologoSeleccionado}"
+						rowKey="#{dato.idCliePsico}"
+						value="#{MBAgendarCita.listaClientesPsicologo}">
+						<f:facet name="header">
+    					   Psicologos Relacionados 
+   				        </f:facet>
+
+						<p:ajax event="rowSelect" update=":formPrincipal:tbl2"
+							listener="#{MBAgendarCita.cargarServicios}" />
+
+
+						<p:column headerText="Nombres ">
+							<h:outputText value="#{dato.usuario2.nombre}" />
+						</p:column>
+
+						<p:column headerText="Apellidos">
+							<h:outputText value="#{dato.usuario2.apellidos}" />
+
+
+
+						</p:column>
+						<p:column headerText="Celular ">
+							<h:outputText value="#{dato.usuario2.celular}" />
+
+
+
+						</p:column>
+						<p:column headerText="Correo ">
+							<h:outputText value="#{dato.usuario2.email}" />
+
+
+
+						</p:column>
+
+					</p:dataTable>
+
+
+					<br></br>
+					<br></br>
+					<p:dataTable id="tbl2" var="dato" selectionMode="single"
+						selection="#{MBAgendarCita.servicioSeleccionado}"
+						rowKey="#{dato.idServicio}" value="#{MBAgendarCita.listaServicio}">
+						<f:facet name="header">
+    					   Servicios Del Psicologo  
+   				        </f:facet>
+
+
+
+
+						<p:column headerText="Tipo Servicio ">
+							<h:outputText value="#{dato.tiposServicio.nombreTipo}" />
+						</p:column>
+
+						<p:column headerText="Nombre Servicio ">
+							<h:outputText value="#{dato.nombreServicio}" />
+
+
+
+						</p:column>
+						<p:column headerText="Precio ">
+							<h:outputText value="#{dato.precio}" />
+
+
+
+						</p:column>
+
+
+					</p:dataTable>
+
+					<br></br>
+					<div align="center">
+
+						<p:panel id="datos2" header="Tipo De Cita Y Estado Cliente">
+
+
+
+
+							<h:panelGrid id="campos" columns="2" cellpadding="4">
+
+								<h:outputText style="    font-weight: bold; "
+									value="Tipo Cita : " />
+
+
+
+
+
+								<p:selectOneMenu id="d51" style="width:200px"
+									value="#{MBAgendarCita.tipoCitaSeleccionado}">
+									<f:selectItem itemLabel="Seleccione..." itemValue="" />
+									<f:selectItems value="#{MBAgendarCita.listaTipoCita}" />
+
+								</p:selectOneMenu>
+
+								<h:outputText style="    font-weight: bold; "
+									value="Estado Ciente : " />
+
+
+
+
+
+								<p:selectOneMenu id="d52" style="width:200px"
+									value="#{MBAgendarCita.estadoClienteSeleccionado}">
+									<f:selectItem itemLabel="Seleccione..." itemValue="" />
+									<f:selectItems value="#{MBAgendarCita.listaEstadoCliente}" />
+
+								</p:selectOneMenu>
+
+								<h:outputText style="    font-weight: bold; "
+									value="Fecha Programada: " />
+
+
+
+
+								<p:calendar style="width: 200px;" id="d3" maxlength="100"
+									required="true"
+									requiredMessage="Debe Ingresar La Fecha Programada"
+									value="#{MBAgendarCita.fechaProgramada}">
+								</p:calendar>
+
+
+
+
+							</h:panelGrid>
+
+
+							<h:panelGrid id="campos4" columns="1" cellpadding="4">
+
+								<p:commandButton value="Agendar Cita" style="width: 220px;"
+									onstart="PF('statusDialog').show();  "
+									oncomplete="PF('statusDialog').hide();" update="messages1"
+									action="#{MBAgendarCita.guardarCita}"
+									styleClass="btn btn-green" id="guardar">
+								</p:commandButton>
+							</h:panelGrid>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						</p:panel>
+					</div>
+
+
+
+
+
+				</p:panel>
+			</div>
+
+
+
+
+		</h:form>
+
+
+
+
+	</ui:define>
+
+</ui:composition>
