@@ -7,16 +7,16 @@
 
 
 	<ui:define name="content">
-		<h:form id="formPrincipal">
+		<h:form id="formPrincipal" enctype="multipart/form-data">
 
 
 			<h2
 				style="text-align: center; font-size: 50px; color: inherit; font-family: 'BebasNeueRegular', Arial, sans-serif;">
-				Registro Usuarios</h2>
+				Registro Clientes</h2>
 
 
 
-			<p:growl id="messages1" sticky="true" />
+			<p:growl id="messages1"  life="60000" />
 
 			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
 				closable="false" resizable="false" showHeader="false">
@@ -78,10 +78,10 @@
 						</div>
 						<div class="ui-g-12 ui-md-6 ui-lg-3">
 
-							<p:inputText style="width: 200px;" id="d4" maxlength="100"
+							<p:password style="width: 200px;" id="d4" maxlength="100"
 								required="true" requiredMessage="Debe Ingresar La Contraseña"
 								value="#{MBUsuarios.contrasena}">
-							</p:inputText>
+							</p:password>
 						</div>
 
 
@@ -111,11 +111,11 @@
 
 						<div class="ui-g-12 ui-md-6 ui-lg-3">
 
-							<p:inputText style="width: 200px;" id="d6" maxlength="100"
+							<p:password style="width: 200px;" id="d6" maxlength="100"
 								required="true"
 								requiredMessage="Debe Ingresar la Confirmación de la Contraseña"
 								value="#{MBUsuarios.repetirContrasena}">
-							</p:inputText>
+							</p:password>
 						</div>
 
 						<div class="ui-g-12 ui-md-6 ui-lg-3">
@@ -195,15 +195,26 @@
 								required="true"
 								requiredMessage="Debe Ingresar La Descripción Del Perfil"></p:inputTextarea>
 						</div>
-						<div class="ui-g-12 ui-md-6 ui-lg-3"></div>
-						<div class="ui-g-12 ui-md-6 ui-lg-3"></div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+						
+								<h:outputText style="    font-weight: bold; "
+								value="Foto : " />
+						
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+						
+						<p:fileUpload  allowTypes="/(\.|\/)(jpg)$/"  value="#{MBUsuarios.fotoUsuario}" mode="simple" skinSimple="true"/>
+						
+						</div>
 
 
 						<div class="ui-g-12 ui-md-6 ui-lg-4">
 							<p:commandButton value="Guardar" style="width: 220px;"
 								onstart="PF('statusDialog').show();  "
+								
+								ajax="false" 
 								oncomplete="PF('statusDialog').hide();" update="messages1"
-								action="#{MBUsuarios.guardarUsuario}" styleClass="btn btn-green"
+								actionListener="#{MBUsuarios.guardarCliente}" styleClass="btn btn-green"
 								id="guardar">
 							</p:commandButton>
 						</div>
@@ -220,6 +231,7 @@
 								id="limpiar">
 							</p:commandButton>
 						</div>
+						
 						<div class="ui-g-12 ui-md-6 ui-lg-4">
 							<p:commandButton value="Regresar" style="width: 220px;"
 								onstart="PF('statusDialog').show();  "

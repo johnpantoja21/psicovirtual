@@ -19,13 +19,11 @@ public class TiposServicio implements Serializable {
 	@Column(name="ID_TIPO")
 	private int idTipo;
 
+	private String estado;
+
 	@Column(name="NOMBRE_TIPO")
 	private String nombreTipo;
 
-	
-	private String estado;
-	
-	
 	//bi-directional many-to-one association to Servicio
 	@OneToMany(mappedBy="tiposServicio")
 	private List<Servicio> servicios;
@@ -39,6 +37,14 @@ public class TiposServicio implements Serializable {
 
 	public void setIdTipo(int idTipo) {
 		this.idTipo = idTipo;
+	}
+
+	public String getEstado() {
+		return this.estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	public String getNombreTipo() {
@@ -70,15 +76,5 @@ public class TiposServicio implements Serializable {
 
 		return servicio;
 	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-	
-	
 
 }

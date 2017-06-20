@@ -1,8 +1,6 @@
 package com.psicovirtual.procesos.modelo.ejb.entity.procesos;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -20,7 +18,7 @@ public class Usuario implements Serializable {
 
 	@Id
 	@Column(name="ID_USUARIO")
-	private BigDecimal idUsuario;
+	private int idUsuario;
 
 	private String apellidos;
 
@@ -66,22 +64,20 @@ public class Usuario implements Serializable {
 	@JoinColumn(name="ID_TIPO_USU")
 	private TipoUsuario tipoUsuario;
 
+	//bi-directional many-to-one association to Horario
+	@OneToMany(mappedBy="usuario")
+	private List<Horario> horarios;
+
 	public Usuario() {
 	}
 
-
-
-	public BigDecimal getIdUsuario() {
-		return idUsuario;
+	public int getIdUsuario() {
+		return this.idUsuario;
 	}
 
-
-
-	public void setIdUsuario(BigDecimal idUsuario) {
+	public void setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
 	}
-
-
 
 	public String getApellidos() {
 		return this.apellidos;
@@ -251,6 +247,28 @@ public class Usuario implements Serializable {
 
 	public void setTipoUsuario(TipoUsuario tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
+	}
+
+	public List<Horario> getHorarios() {
+		return this.horarios;
+	}
+
+	public void setHorarios(List<Horario> horarios) {
+		this.horarios = horarios;
+	}
+
+	public Horario addHorario(Horario horario) {
+		getHorarios().add(horario);
+		horario.setUsuario(this);
+
+		return horario;
+	}
+
+	public Horario removeHorario(Horario horario) {
+		getHorarios().remove(horario);
+		horario.setUsuario(null);
+
+		return horario;
 	}
 
 }

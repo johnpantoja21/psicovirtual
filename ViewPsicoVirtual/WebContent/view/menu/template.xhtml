@@ -16,11 +16,11 @@
 	</f:metadata>
 
 	<h:head>
-	<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
-	<meta http-equiv="Pragma" content="no-cache" />
-	<meta http-equiv="Expires" content="0" />
-	<h:outputStylesheet library="css" name="default.css" />
-	<h:outputScript library="js" name="validaciones.js" />
+		<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<h:outputStylesheet library="css" name="default.css" />
+		<h:outputScript library="js" name="validaciones.js" />
 
 
 		<h:form id="mainForm1">
@@ -40,21 +40,40 @@
 					</p:submenu>
 					<p:submenu label="Usuarios" icon="ui-icon-contact">
 
-						<p:menuitem value="Registro Usuarios"
-							url="/view/usuarios/registroUsuarios.xhtml" />
+						<p:menuitem value="Registro Clientes"
+							url="/view/usuarios/registroClientes.xhtml" />
+
+						<p:menuitem value="Registro Psicologos"
+							url="/view/usuarios/registroPsicologos.xhtml" />
+
+						<p:menuitem value="Modificar Usuario"
+							onstart="#{MBUsuarios.cargarUsuario(MBLogin.user)}"
+							url="/view/usuarios/modificarUsuario.xhtml" />
+
+
 					</p:submenu>
-						<p:submenu label="Psicologos" icon="ui-icon-contact">
+					<p:submenu label="Psicologos" icon="ui-icon-contact">
 
 						<p:menuitem value="Busqueda Psicologos"
+							onstart="#{MBPsicologos.iniciar}"
 							url="/view/gestion/busquedaPsicologos.xhtml" />
 					</p:submenu>
-					
-					
-					
+
+
+
 					<p:submenu label="Citas" icon="ui-icon-contact">
 
 						<p:menuitem value="Agendar Citas"
 							url="/view/gestion/agendarCita.xhtml" />
+
+
+						<p:menuitem value="Horarios"
+							onstart="#{MBPsicologos.cargarUsuario(MBLogin.user)}"
+							url="/view/gestion/horarios.xhtml" />
+
+						<p:menuitem value="Agenda" url="/view/gestion/agenda.xhtml" />
+
+
 					</p:submenu>
 
 				</p:submenu>
@@ -68,6 +87,9 @@
 
 				<f:facet name="options">
 
+
+					<p:outputLabel style="margin-right:15px;font-weight: bold;"
+						value="#{MBLogin.user}" />
 					<p:commandButton value="Cerrar Sesión"
 						actionListener="#{MBLogin.cerrarSesion}" icon="ui-icon-extlink" />
 				</f:facet>

@@ -89,16 +89,14 @@
 
 
 							<p:commandButton value="Modificar" style="width: 220px;"
-								onstart="PF('statusDialog').show();  "
-								oncomplete="PF('statusDialog').hide();"
+							
 								update=":formPrincipal:tapView:camposModificar, messages1
 							,:formPrincipal:tapView:tbl"
 								action="#{MBEstadoCita.guardarModificar}"
 								styleClass="btn btn-green" id="modificar">
 							</p:commandButton>
 							<p:commandButton value="Limpiar" style="width: 220px;"
-								onstart="PF('statusDialog').show();  "
-								oncomplete="PF('statusDialog').hide();"
+							
 								update=":formPrincipal:tapView:camposModificar"
 								action="#{MBEstadoCita.limpiarModificar}"
 								styleClass="btn btn-blue" id="limpiarModificar">

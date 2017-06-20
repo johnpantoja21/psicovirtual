@@ -6,6 +6,7 @@ import javax.ejb.Local;
 
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Cita;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.ClientesPsicologo;
+import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Horario;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Servicio;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Usuario;
 
@@ -22,5 +23,14 @@ public interface SBUsuariosLocal {
 	public List<Servicio> listaServiciosPsicologo(String id) throws Exception;
 	public Cita guardarCita(Cita nuevo) throws Exception;
 	public List<Usuario> listarPsicologos() throws Exception;
+
+	public Horario buscarHorario(Object id) throws Exception ;
 	
+	public List<Horario> listaHorario() throws Exception;
+	public Horario modificarHorario(
+			Horario horarioGuardar) throws Exception ;
+	
+	public Horario guardarHorario(
+			Horario horarioGuardar) throws Exception;
+	public List<Horario> listaHorarioPsicologo(Usuario user) throws Exception ;
 }

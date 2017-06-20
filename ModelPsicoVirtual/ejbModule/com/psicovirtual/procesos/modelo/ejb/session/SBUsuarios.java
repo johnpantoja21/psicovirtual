@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import com.psicovirtual.estandar.modelo.ejb.session.SBFacadeProcesosLocal;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Cita;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.ClientesPsicologo;
+import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Horario;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Servicio;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.TipoUsuario;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Usuario;
@@ -55,14 +56,24 @@ public class SBUsuarios implements SBUsuariosLocal {
 
 	@Override
 	public int consultarUsuarioRepetido(Usuario user) throws Exception {
-		String query = "SELECT count(u.idUsuario) FROM Usuario u where u.usuario='" + user.getUsuario() + "' ";
 
-		List listUsuario = sbFacade.executeQuery(query, null);
+		String query = "SELECT COUNT(USUARIO) FROM usuarios WHERE USUARIO ='" + user.getUsuario() + "' ";
 
-		if (listUsuario.size() > 0) {
-			return 1;
+		List registrosList = sbFacade.executeNativeQuery(query, null);
+		String vo = "0";
+		int cont = 0;
+		for (int i = 0; i < registrosList.size(); i++) {
+
+			
+			
+			if (vo.equalsIgnoreCase("null")) {
+				cont = 0;
+			}else{
+				cont = Integer.parseInt(registrosList.get(i) + "");
+			}
 		}
-		return 0;
+		return cont;
+
 	}
 
 	@Override
@@ -76,77 +87,129 @@ public class SBUsuarios implements SBUsuariosLocal {
 		String query = "SELECT u FROM Usuario u where u.idUsuario='" + id + "' ";
 
 		List<Usuario> listUsuario = sbFacade.executeQuery(query, null);
-		Usuario temp=new Usuario();;
+		Usuario temp = new Usuario();
 
 		for (int i = 0; i < listUsuario.size(); i++) {
 			temp = listUsuario.get(i);
 		}
 		return temp;
 	}
-	
+
 	@Override
 	public Usuario consultarDetalleUsuarioByUsuario(String usuario) throws Exception {
 		String query = "SELECT u FROM Usuario u where u.usuario='" + usuario + "' ";
 
 		List<Usuario> listUsuario = sbFacade.executeQuery(query, null);
-		Usuario temp=new Usuario();;
+		Usuario temp = new Usuario();
+		;
 
 		for (int i = 0; i < listUsuario.size(); i++) {
 			temp = listUsuario.get(i);
 		}
 		return temp;
 	}
-	
-	
-	
-	
+
 	@Override
 	public List<ClientesPsicologo> listaClientePsicologo(String id) throws Exception {
-		
-		
-		HashMap parametros= new HashMap();
+
+		HashMap parametros = new HashMap();
 		parametros.put("id", new BigDecimal(id));
 		String query = "select o from ClientesPsicologo o where o.usuario1.idUsuario = :id";
-		List<ClientesPsicologo> lista = sbFacade.executeQuery(query,
-				parametros);
+		List<ClientesPsicologo> lista = sbFacade.executeQuery(query, parametros);
 		return lista;
 
 	}
-	
-	
-	
-	
+
 	@Override
 	public List<Servicio> listaServiciosPsicologo(String id) throws Exception {
-		
-		
-		HashMap parametros= new HashMap();
+
+		HashMap parametros = new HashMap();
 		parametros.put("id", new BigDecimal(id));
 		String query = "select o from Servicio o where o.usuario.idUsuario = :id";
-		List<Servicio> lista = sbFacade.executeQuery(query,
-				parametros);
+		List<Servicio> lista = sbFacade.executeQuery(query, parametros);
 		return lista;
 
 	}
-	
-	
+
 	@Override
 	public Cita guardarCita(Cita nuevo) throws Exception {
 		Cita entity = (Cita) sbFacade.insertEntity(nuevo);
 		return entity;
 	}
-	
+
 	@Override
 	public List<Usuario> listarPsicologos() throws Exception {
-		
-		
-	
+
 		String query = "select o from Usuario o where o.tipoUsuario.idTipoUsu = '2'";
-		List<Usuario> lista = sbFacade.executeQuery(query,
+		List<Usuario> lista = sbFacade.executeQuery(query, null);
+		return lista;
+
+	}
+	
+	
+	
+	
+	@Override
+	public Horario guardarHorario(
+			Horario horarioGuardar) throws Exception {
+		// TODO Auto-generated method stub
+
+		Horario entity = (Horario) sbFacade
+				.insertEntity(horarioGuardar);
+		return entity;
+
+	}
+	
+	
+	
+	@Override
+	public Horario modificarHorario(
+			Horario horarioGuardar) throws Exception {
+		// TODO Auto-generated method stub
+
+		Horario entity = (Horario) sbFacade
+				.updateEntity(horarioGuardar);
+		return entity;
+
+	}
+	
+
+	@Override
+	public List<Horario> listaHorario() throws Exception {
+		String query = "select o from Horario o ";
+		List<Horario> lista = sbFacade.executeQuery(query,
 				null);
 		return lista;
 
 	}
 	
+	
+	
+	
 
+	@Override
+	public List<Horario> listaHorarioPsicologo(Usuario user) throws Exception {
+		String query = "select o from Horario o where o.usuario.idUsuario = '" + user.getIdUsuario() + "' ";
+		List<Horario> lista = sbFacade.executeQuery(query,
+				null);
+		return lista;
+
+	}
+	
+	
+	
+	
+	
+	
+	
+
+	@Override
+	public Horario buscarHorario(Object id) throws Exception {
+
+		Horario entity = (Horario) sbFacade.findByPrimaryKey(
+				Horario.class, id);
+		return entity;
+	}
+	
+	
 }

@@ -61,8 +61,8 @@
 
 					<br></br>
 					<br></br>
-
-					<p:repeat  value="#{MBPsicologos.listaPsicologos}" var="dato">
+<p:separator />
+					<p:repeat   value="#{MBPsicologos.listaPsicologos}" var="dato">
 
 
 						<div class="ui-g">
@@ -73,7 +73,7 @@
 
 
 								<p:graphicImage width="200" library="fotos"
-									name="#{dato.usuario}.jpg" />
+									name="#{dato.foto}" />
 
 							</div>
 
@@ -87,7 +87,7 @@
 
 
 										<h:outputText value="#{dato.descripcionPerfil}"
-											style="font-weight: bold" />
+											style="font-weight: bold;font-style: italic;" />
 
 										<p:dataList style="color:red" value="#{dato.servicios}"
 											var="dato2" type="ordered">
@@ -110,17 +110,11 @@
 											action="#{MBAgendarCita.guardarCita}"
 											styleClass="btn btn-blue" id="guardar">
 										</p:commandButton>
-										<p:commandButton value="Servicios" style="width: 220px;"
-											onstart="PF('statusDialog').show();  "
-											oncomplete="PF('statusDialog').hide();"
-											action="#{MBAgendarCita.guardarCita}"
-											styleClass="btn btn-blue" id="guardar1">
-
-										</p:commandButton>
+									
 										<p:commandButton value="Mas Información" style="width: 220px;"
 											onstart="PF('statusDialog').show();  "
 											oncomplete="PF('statusDialog').hide();"
-											action="#{MBAgendarCita.guardarCita}"
+											action="#{MBPsicologos.masInformacion(dato)}"
 											styleClass="btn btn-blue" id="guardar2">
 										</p:commandButton>
 

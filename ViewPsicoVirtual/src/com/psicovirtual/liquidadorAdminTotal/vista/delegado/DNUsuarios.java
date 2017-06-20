@@ -9,6 +9,7 @@ import com.psicovirtual.estandar.modelo.utilidades.Parametros;
 import com.psicovirtual.estandar.vista.utilidades.ServiceLocator;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Cita;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.ClientesPsicologo;
+import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Horario;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Servicio;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Usuario;
 import com.psicovirtual.procesos.modelo.ejb.session.SBUsuariosLocal;
@@ -68,6 +69,27 @@ public class DNUsuarios {
 	public List<Usuario> listarPsicologos() throws Exception {
 		return sBUsuariosLocal.listarPsicologos();
 	}
+
+	public Horario buscarHorario(Object id) throws Exception {
+		return sBUsuariosLocal.buscarHorario(id);
+	}
+
+	public List<Horario> listaHorario() throws Exception {
+		return sBUsuariosLocal.listaHorario();
+	}
+
+	public Horario modificarHorario(Horario horarioGuardar) throws Exception {
+		return sBUsuariosLocal.modificarHorario(horarioGuardar);
+	}
+
+	public Horario guardarHorario(Horario horarioGuardar) throws Exception {
+		return sBUsuariosLocal.guardarHorario(horarioGuardar);
+	}
+
+	public List<Horario> listaHorarioPsicologo(Usuario user) throws Exception {
+		return sBUsuariosLocal.listaHorarioPsicologo(user);
+	}
+	
 	
 	
 

@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/view/menu/template.xhtml">
+
+
+	<ui:define name="content">
+		<h:form id="formPrincipal">
+
+
+			<h2
+				style="text-align: center; font-size: 50px; color: inherit; font-family: 'BebasNeueRegular', Arial, sans-serif;">
+				Agenda</h2>
+
+
+
+			<p:growl id="messages1" sticky="true" />
+
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<p:graphicImage library="images" name="ajax-loader.gif" />
+			</p:dialog>
+			<div>
+
+				<p:panel id="datos">
+
+
+
+
+					<h:panelGrid columnClasses="value">
+						<h3 style="margin-top: 0">Editable Schedule</h3>
+						<p:schedule id="schedule" value="#{MBPsicologos.eventModel}"
+							widgetVar="myschedule" timeZone="GMT+2">
+
+
+						</p:schedule>
+
+
+					</h:panelGrid>
+
+
+
+					<br></br>
+
+
+				</p:panel>
+
+
+
+
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+		</h:form>
+
+
+
+
+	</ui:define>
+
+</ui:composition>

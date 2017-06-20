@@ -1,8 +1,6 @@
 package com.psicovirtual.procesos.modelo.ejb.entity.procesos;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,34 +17,32 @@ public class TipoUsuario implements Serializable {
 
 	@Id
 	@Column(name="ID_TIPO_USU")
-	private BigDecimal idTipoUsu;
+	private int idTipoUsu;
 
 	private String descripcion;
 
-	private String nombre;
-	
 	private String estado;
+
+	private String nombre;
 
 	//bi-directional many-to-one association to Usuario
 	@OneToMany(mappedBy="tipoUsuario")
 	private List<Usuario> usuarios;
 
+	//bi-directional many-to-one association to PaginasPerfile
+	@OneToMany(mappedBy="tipoUsuario")
+	private List<PaginasPerfile> paginasPerfiles;
+
 	public TipoUsuario() {
 	}
 
-	
-
-	public BigDecimal getIdTipoUsu() {
-		return idTipoUsu;
+	public int getIdTipoUsu() {
+		return this.idTipoUsu;
 	}
 
-
-
-	public void setIdTipoUsu(BigDecimal idTipoUsu) {
+	public void setIdTipoUsu(int idTipoUsu) {
 		this.idTipoUsu = idTipoUsu;
 	}
-
-
 
 	public String getDescripcion() {
 		return this.descripcion;
@@ -54,6 +50,14 @@ public class TipoUsuario implements Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public String getEstado() {
+		return this.estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	public String getNombre() {
@@ -86,15 +90,26 @@ public class TipoUsuario implements Serializable {
 		return usuario;
 	}
 
-	public String getEstado() {
-		return estado;
+	public List<PaginasPerfile> getPaginasPerfiles() {
+		return this.paginasPerfiles;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setPaginasPerfiles(List<PaginasPerfile> paginasPerfiles) {
+		this.paginasPerfiles = paginasPerfiles;
 	}
-	
-	
-	
+
+	public PaginasPerfile addPaginasPerfile(PaginasPerfile paginasPerfile) {
+		getPaginasPerfiles().add(paginasPerfile);
+		paginasPerfile.setTipoUsuario(this);
+
+		return paginasPerfile;
+	}
+
+	public PaginasPerfile removePaginasPerfile(PaginasPerfile paginasPerfile) {
+		getPaginasPerfiles().remove(paginasPerfile);
+		paginasPerfile.setTipoUsuario(null);
+
+		return paginasPerfile;
+	}
 
 }

@@ -73,7 +73,7 @@ public class MBTipoUsuario {
 
 	public void limpiarModificar() {
 		tipoUsuarioSeleccionado = null;
-
+		descripcionModificar=null;
 		nombreTipoModificar = null;
 		estadoModificar = null;
 	}

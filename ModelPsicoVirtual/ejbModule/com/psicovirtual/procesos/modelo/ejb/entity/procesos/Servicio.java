@@ -19,6 +19,8 @@ public class Servicio implements Serializable {
 	@Column(name="ID_SERVICIO")
 	private int idServicio;
 
+	private String estado;
+
 	@Column(name="NOMBRE_SERVICIO")
 	private String nombreServicio;
 
@@ -47,6 +49,14 @@ public class Servicio implements Serializable {
 
 	public void setIdServicio(int idServicio) {
 		this.idServicio = idServicio;
+	}
+
+	public String getEstado() {
+		return this.estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	public String getNombreServicio() {
@@ -102,13 +112,5 @@ public class Servicio implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
-	
-	public String listaServicios() {
-		return "Servicio [nombreServicio=" + nombreServicio + "]";
-	}
-	
-	
-	
 
 }

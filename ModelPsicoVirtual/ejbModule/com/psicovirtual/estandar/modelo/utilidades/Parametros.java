@@ -32,7 +32,7 @@ public class Parametros {
     public static final String RUTA_JASPER="/WEB-INF/reportes/";
     public static final String RUTA_PDF="/WEB-INF/pdf/";
     public static final String RUTA_IMG="/resources/images/";
-    
+    public static final String RUTA_FOTOS="/resources/fotos/";
     //ID SECCIONES
     public static final long SECCION_FIRST=1L;
     public static final long SECCION_SECOND=2L;

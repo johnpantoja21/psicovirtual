@@ -2,6 +2,7 @@ package com.psicovirtual.procesos.modelo.ejb.entity.procesos;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,12 @@ public class Cita implements Serializable {
 	@Column(name="FECHA_ASIGNADA")
 	private Date fechaAsignada;
 
+	@Column(name="HORA_ASIGNADA")
+	private Time horaAsignada;
+
+	@Column(name="HORA_CANTIDAD")
+	private int horaCantidad;
+
 	@Column(name="VALOR_PAGO")
 	private int valorPago;
 
@@ -33,15 +40,6 @@ public class Cita implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="ID_CLIE_PSICO")
 	private ClientesPsicologo clientesPsicologo;
-
-	//bi-directional many-to-one association to Servicio
-	@ManyToOne
-	@JoinColumn(name="ID_SERVICIO")
-	private Servicio servicio;
-
-	//bi-directional many-to-one association to SeccionHistorial
-	@OneToMany(mappedBy="cita")
-	private List<SeccionHistorial> seccionHistorials;
 
 	//bi-directional many-to-one association to EstadoCita
 	@ManyToOne
@@ -53,10 +51,19 @@ public class Cita implements Serializable {
 	@JoinColumn(name="ID_ESTADO_CLIE")
 	private EstadoCliente estadoCliente;
 
+	//bi-directional many-to-one association to Servicio
+	@ManyToOne
+	@JoinColumn(name="ID_SERVICIO")
+	private Servicio servicio;
+
 	//bi-directional many-to-one association to TipoCita
 	@ManyToOne
 	@JoinColumn(name="ID_TIPO_CITA")
 	private TipoCita tipoCita;
+
+	//bi-directional many-to-one association to SeccionHistorial
+	@OneToMany(mappedBy="cita")
+	private List<SeccionHistorial> seccionHistorials;
 
 	public Cita() {
 	}
@@ -85,6 +92,22 @@ public class Cita implements Serializable {
 		this.fechaAsignada = fechaAsignada;
 	}
 
+	public Time getHoraAsignada() {
+		return this.horaAsignada;
+	}
+
+	public void setHoraAsignada(Time horaAsignada) {
+		this.horaAsignada = horaAsignada;
+	}
+
+	public int getHoraCantidad() {
+		return this.horaCantidad;
+	}
+
+	public void setHoraCantidad(int horaCantidad) {
+		this.horaCantidad = horaCantidad;
+	}
+
 	public int getValorPago() {
 		return this.valorPago;
 	}
@@ -101,12 +124,36 @@ public class Cita implements Serializable {
 		this.clientesPsicologo = clientesPsicologo;
 	}
 
+	public EstadoCita getEstadoCita() {
+		return this.estadoCita;
+	}
+
+	public void setEstadoCita(EstadoCita estadoCita) {
+		this.estadoCita = estadoCita;
+	}
+
+	public EstadoCliente getEstadoCliente() {
+		return this.estadoCliente;
+	}
+
+	public void setEstadoCliente(EstadoCliente estadoCliente) {
+		this.estadoCliente = estadoCliente;
+	}
+
 	public Servicio getServicio() {
 		return this.servicio;
 	}
 
 	public void setServicio(Servicio servicio) {
 		this.servicio = servicio;
+	}
+
+	public TipoCita getTipoCita() {
+		return this.tipoCita;
+	}
+
+	public void setTipoCita(TipoCita tipoCita) {
+		this.tipoCita = tipoCita;
 	}
 
 	public List<SeccionHistorial> getSeccionHistorials() {
@@ -129,30 +176,6 @@ public class Cita implements Serializable {
 		seccionHistorial.setCita(null);
 
 		return seccionHistorial;
-	}
-
-	public EstadoCita getEstadoCita() {
-		return this.estadoCita;
-	}
-
-	public void setEstadoCita(EstadoCita estadoCita) {
-		this.estadoCita = estadoCita;
-	}
-
-	public EstadoCliente getEstadoCliente() {
-		return this.estadoCliente;
-	}
-
-	public void setEstadoCliente(EstadoCliente estadoCliente) {
-		this.estadoCliente = estadoCliente;
-	}
-
-	public TipoCita getTipoCita() {
-		return this.tipoCita;
-	}
-
-	public void setTipoCita(TipoCita tipoCita) {
-		this.tipoCita = tipoCita;
 	}
 
 }

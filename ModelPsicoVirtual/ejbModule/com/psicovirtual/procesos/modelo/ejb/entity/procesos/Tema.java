@@ -21,10 +21,11 @@ public class Tema implements Serializable {
 
 	private String descripcion;
 
-	
-
 	private String estado;
-	
+
+	@Column(name="ID_PSICOLOGO")
+	private String idPsicologo;
+
 	//bi-directional many-to-one association to SeccionHistorial
 	@OneToMany(mappedBy="tema")
 	private List<SeccionHistorial> seccionHistorials;
@@ -46,6 +47,22 @@ public class Tema implements Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public String getEstado() {
+		return this.estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getIdPsicologo() {
+		return this.idPsicologo;
+	}
+
+	public void setIdPsicologo(String idPsicologo) {
+		this.idPsicologo = idPsicologo;
 	}
 
 	public List<SeccionHistorial> getSeccionHistorials() {
@@ -70,15 +87,4 @@ public class Tema implements Serializable {
 		return seccionHistorial;
 	}
 
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
-	
-	
-	
 }

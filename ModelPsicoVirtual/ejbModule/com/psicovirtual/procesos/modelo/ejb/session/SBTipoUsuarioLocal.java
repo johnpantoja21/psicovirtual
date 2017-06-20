@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Horario;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.TipoUsuario;
 
 @Local
@@ -15,5 +16,6 @@ public interface SBTipoUsuarioLocal {
 	public TipoUsuario buscarTipoUsuario(Object id) throws Exception;
 
 	public TipoUsuario modificarTipoUsuario(TipoUsuario tipoUsuarioGuardar) throws Exception;
+
 
 }

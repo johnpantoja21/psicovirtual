@@ -7,6 +7,8 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import com.psicovirtual.estandar.modelo.ejb.session.SBFacadeProcesosLocal;
+import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Horario;
+import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Tema;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.TipoUsuario;
 
 /**
@@ -68,5 +70,23 @@ public class SBTipoUsuario implements SBTipoUsuarioLocal {
 				TipoUsuario.class, id);
 		return entity;
 	}
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

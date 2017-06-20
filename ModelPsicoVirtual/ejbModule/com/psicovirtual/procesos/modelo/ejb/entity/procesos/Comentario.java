@@ -19,6 +19,8 @@ public class Comentario implements Serializable {
 	@Column(name="ID_COMENTARIO")
 	private int idComentario;
 
+	private String estado;
+
 	@Temporal(TemporalType.DATE)
 	@Column(name="FECHA_PUBLICACION")
 	private Date fechaPublicacion;
@@ -40,6 +42,14 @@ public class Comentario implements Serializable {
 
 	public void setIdComentario(int idComentario) {
 		this.idComentario = idComentario;
+	}
+
+	public String getEstado() {
+		return this.estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	public Date getFechaPublicacion() {

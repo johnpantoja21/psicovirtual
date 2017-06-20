@@ -1,8 +1,6 @@
 package com.psicovirtual.procesos.modelo.ejb.entity.procesos;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,12 +17,12 @@ public class EstadoCita implements Serializable {
 
 	@Id
 	@Column(name="ID_ESTADO_CITA")
-	private BigDecimal idEstadoCita;
+	private int idEstadoCita;
 
 	private String descripcion;
 
 	private String estado;
-	
+
 	//bi-directional many-to-one association to Cita
 	@OneToMany(mappedBy="estadoCita")
 	private List<Cita> citas;
@@ -32,16 +30,13 @@ public class EstadoCita implements Serializable {
 	public EstadoCita() {
 	}
 
-
-	public BigDecimal getIdEstadoCita() {
-		return idEstadoCita;
+	public int getIdEstadoCita() {
+		return this.idEstadoCita;
 	}
 
-
-	public void setIdEstadoCita(BigDecimal idEstadoCita) {
+	public void setIdEstadoCita(int idEstadoCita) {
 		this.idEstadoCita = idEstadoCita;
 	}
-
 
 	public String getDescripcion() {
 		return this.descripcion;
@@ -49,6 +44,14 @@ public class EstadoCita implements Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public String getEstado() {
+		return this.estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	public List<Cita> getCitas() {
@@ -72,16 +75,5 @@ public class EstadoCita implements Serializable {
 
 		return cita;
 	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-	
-	
-	
 
 }

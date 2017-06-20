@@ -11,6 +11,9 @@
 		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.EstadoCita</class>
 		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.EstadoCliente</class>
 		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.Festivo</class>
+		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.Horario</class>
+		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.Pagina</class>
+		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.PaginasPerfile</class>
 		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.SeccionFamilia</class>
 		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.SeccionHistorial</class>
 		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.Seguridad</class>

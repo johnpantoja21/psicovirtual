@@ -17,35 +17,37 @@ public class MBLogin {
 	MBMensajes mensajes = new MBMensajes();
 	private String user;
 	private String pass;
-	
 
 	public MBLogin() throws Exception {
 
-		
 	}
 
 	public void navegarControl() {
 
-		try {
-			FacesContext context = FacesContext.getCurrentInstance();
-			ExternalContext extContext = context.getExternalContext();
-			String url2 = extContext.encodeActionURL(
-					context.getApplication().getViewHandler().getActionURL(context, "/view/gestion/bienvenido.xhtml"));
-			extContext.redirect(url2);
-		} catch (Exception exception) {
-			// TODO: Add catch code
-			exception.printStackTrace();
+		if (user.length() > 0) {
+			user = user.toUpperCase();
+			try {
+				FacesContext context = FacesContext.getCurrentInstance();
+				ExternalContext extContext = context.getExternalContext();
+				String url2 = extContext.encodeActionURL(context.getApplication().getViewHandler().getActionURL(context,
+						"/view/gestion/bienvenido.xhtml"));
+				extContext.redirect(url2);
+			} catch (Exception exception) {
+				// TODO: Add catch code
+				exception.printStackTrace();
+			}
 		}
+
 	}
 
 	public void cerrarSesion() {
-System.out.println("paso por cerra");
+		System.out.println("paso por cerra");
 		try {
-			
+
 			FacesContext context = FacesContext.getCurrentInstance();
 			ExternalContext extContext = context.getExternalContext();
-			String url2 = extContext
-					.encodeActionURL(context.getApplication().getViewHandler().getActionURL(context, "/view/login.xhtml"));
+			String url2 = extContext.encodeActionURL(
+					context.getApplication().getViewHandler().getActionURL(context, "/view/login.xhtml"));
 			extContext.redirect(url2);
 
 		} catch (Exception e) {
@@ -79,6 +81,5 @@ System.out.println("paso por cerra");
 	public void setPass(String pass) {
 		this.pass = pass;
 	}
-
 
 }

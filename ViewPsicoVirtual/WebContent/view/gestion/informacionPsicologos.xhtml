@@ -1,0 +1,177 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/view/menu/template.xhtml">
+
+
+	<ui:define name="content">
+		<h:form id="formPrincipal">
+
+
+			<h2
+				style="text-align: center; font-size: 50px; color: inherit; font-family: 'BebasNeueRegular', Arial, sans-serif;">
+				Psicologo</h2>
+
+
+
+			<p:growl id="messages1" sticky="true" />
+
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<p:graphicImage library="images" name="ajax-loader.gif" />
+			</p:dialog>
+			<div>
+
+				<p:panel id="datos">
+
+
+				<div style="text-align: center;">
+
+
+
+
+
+						<p:graphicImage style="border-color: black;
+    border-style: solid;
+    border-width: 6px;" width="200" library="fotos" name="#{MBPsicologos.psicologoSelecionado.foto}" />
+
+					</div>
+
+<p:separator></p:separator>
+					<br> </br>
+
+					<div class="ui-g">
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; " value="Nombre: " />
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText id="d1" maxlength="100"
+								value="#{MBPsicologos.psicologoSelecionado.nombre}">
+							</h:outputText>
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; " value="Apellidos: " />
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText id="d2" maxlength="100"
+								value="#{MBPsicologos.psicologoSelecionado.apellidos}">
+							</h:outputText>
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; " value="Teléfono: " />
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText id="d3" maxlength="100"
+								value="#{MBPsicologos.psicologoSelecionado.telefono}">
+							</h:outputText>
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; " value="Celular: " />
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText id="d4" maxlength="100"
+								value="#{MBPsicologos.psicologoSelecionado.celular}">
+							</h:outputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; " value="Email: " />
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText id="d5" maxlength="100"
+								value="#{MBPsicologos.psicologoSelecionado.email}">
+							</h:outputText>
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Descripcion Perfil: " />
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText id="d6" maxlength="100"
+								value="#{MBPsicologos.psicologoSelecionado.descripcionPerfil}">
+							</h:outputText>
+						</div>
+
+
+					</div>
+
+
+					<br></br>
+
+					<p:dataTable var="dato"
+						value="#{MBPsicologos.psicologoSelecionado.servicios}">
+						<f:facet name="header">
+   						     Servicios
+    					</f:facet>
+
+
+						<p:column headerText="Tipo Servicio"
+							filterBy="#{dato.tiposServicio.nombreTipo}"
+							filterMatchMode="contains">
+
+
+
+							<h:outputText value="#{dato.tiposServicio.nombreTipo}" />
+						</p:column>
+
+						<p:column headerText="Nombre" filterBy="#{dato.nombreServicio}"
+							filterMatchMode="contains">
+
+
+							<h:outputText value="#{dato.nombreServicio}" />
+						</p:column>
+
+						<p:column headerText="Precio" filterBy="#{dato.precio}"
+							filterMatchMode="contains">
+
+							<h:outputText value="#{dato.precio}" />
+						</p:column>
+
+
+					</p:dataTable>
+
+
+					<br></br>
+					<div style="text-align: center;">
+
+
+
+
+
+
+
+						<p:commandButton value="Regresar" style="width: 220px;"
+							onstart="PF('statusDialog').show();  "
+							oncomplete="PF('statusDialog').hide();"
+							action="#{MBPsicologos.regresarPsicologos}"
+							styleClass="btn btn-blue" id="guardar2">
+						</p:commandButton>
+
+					</div>
+				</p:panel>
+
+
+
+
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+		</h:form>
+
+
+
+
+	</ui:define>
+
+</ui:composition>
