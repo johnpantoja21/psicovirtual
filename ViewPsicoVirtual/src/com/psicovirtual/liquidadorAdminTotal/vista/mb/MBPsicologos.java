@@ -64,7 +64,7 @@ public class MBPsicologos {
 	private List<Horario> listaHorarios;
 
 	private ScheduleModel eventModel;
-
+	 private ScheduleEvent event = new DefaultScheduleEvent();
 	public Date getRandomDate(Date base) {
 		Calendar date = Calendar.getInstance();
 		date.setTime(base);
@@ -89,7 +89,7 @@ public class MBPsicologos {
 		insert.setEstado("ACTIVO");
 
 		dNUsuario.guardarHorario(insert);
-
+		listaHorarios = dNUsuario.listaHorarioPsicologo(psicologoSelecionado);
 	}
 
 	public void cargarUsuario(String user) throws Exception {
@@ -97,6 +97,7 @@ public class MBPsicologos {
 		if (dNUsuario == null) {
 			dNUsuario = new DNUsuarios();
 		}
+		
 
 		Usuario usuarioModificar = dNUsuario.consultarDetalleUsuarioByUsuario(user);
 		if (usuarioModificar != null) {
@@ -115,6 +116,11 @@ public class MBPsicologos {
 		}
 
 	}
+	
+	
+	   public void onEventSelect(SelectEvent selectEvent) {
+	        event = (ScheduleEvent) selectEvent.getObject();
+	    }
 
 	public void inactivar(Horario horario) throws Exception {
 
@@ -397,6 +403,14 @@ public class MBPsicologos {
 
 	public void setEventModel(ScheduleModel eventModel) {
 		this.eventModel = eventModel;
+	}
+
+	public ScheduleEvent getEvent() {
+		return event;
+	}
+
+	public void setEvent(ScheduleEvent event) {
+		this.event = event;
 	}
 
 }

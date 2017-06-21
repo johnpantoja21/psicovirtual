@@ -100,7 +100,7 @@
 
 
 							<h:outputText value="#{dato.fechaInicial}">
-								<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"  timeZone="GMT-5"/>
 							</h:outputText>
 						</p:column>
 
@@ -108,7 +108,7 @@
 
 
 							<h:outputText value="#{dato.fechaFinal}">
-								<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"  timeZone="GMT-5"/>
 							</h:outputText>
 						</p:column>
 						<p:column headerText="Estado">
