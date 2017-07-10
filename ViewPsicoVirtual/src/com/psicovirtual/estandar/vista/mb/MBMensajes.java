@@ -11,6 +11,8 @@ import com.psicovirtual.estandar.vista.utilidades.AccesoPropiedadesVista;
 
 public class MBMensajes {
 
+	
+	
     public static int MENSAJE_OK = 1;
     public static int MENSAJE_ERROR = 2;
     public static int MENSAJE_ALERTA = 3;
