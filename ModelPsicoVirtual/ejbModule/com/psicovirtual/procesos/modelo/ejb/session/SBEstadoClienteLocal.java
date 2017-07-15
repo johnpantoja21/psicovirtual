@@ -20,4 +20,8 @@ public interface SBEstadoClienteLocal {
 	public List<EstadoCliente> listaEstadoCliente() throws Exception;
 
 	public EstadoCliente buscarEstadoCliente(Object id) throws Exception;
+	
+	public List<EstadoCliente> listaEstadoClienteActivos() throws Exception;
+	
+	
 }

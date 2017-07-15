@@ -14,8 +14,6 @@
 				style="text-align: center; font-size: 50px; color: inherit; font-family: 'BebasNeueRegular', Arial, sans-serif;">
 				Agendar Cita</h2>
 
-
-
 			<p:growl id="messages1" sticky="true" />
 
 			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
@@ -26,7 +24,6 @@
 
 				<p:panel id="datos">
 
-
 					<p:dataTable id="tbl" var="dato" selectionMode="single"
 						selection="#{MBAgendarCita.clientesPsicologoSeleccionado}"
 						rowKey="#{dato.idCliePsico}"
@@ -35,9 +32,8 @@
     					   Psicologos Relacionados 
    				        </f:facet>
 
-						<p:ajax event="rowSelect" update=":formPrincipal:tbl2"
+						<p:ajax event="rowSelect" update=":formPrincipal:tbl2,formPrincipal:tblHora"
 							listener="#{MBAgendarCita.cargarServicios}" />
-
 
 						<p:column headerText="Nombres ">
 							<h:outputText value="#{dato.usuario2.nombre}" />
@@ -45,21 +41,14 @@
 
 						<p:column headerText="Apellidos">
 							<h:outputText value="#{dato.usuario2.apellidos}" />
-
-
-
 						</p:column>
+
 						<p:column headerText="Celular ">
 							<h:outputText value="#{dato.usuario2.celular}" />
-
-
-
 						</p:column>
+
 						<p:column headerText="Correo ">
 							<h:outputText value="#{dato.usuario2.email}" />
-
-
-
 						</p:column>
 
 					</p:dataTable>
@@ -74,36 +63,51 @@
     					   Servicios Del Psicologo  
    				        </f:facet>
 
-
-
-
 						<p:column headerText="Tipo Servicio ">
 							<h:outputText value="#{dato.tiposServicio.nombreTipo}" />
 						</p:column>
 
 						<p:column headerText="Nombre Servicio ">
 							<h:outputText value="#{dato.nombreServicio}" />
-
-
-
 						</p:column>
+
 						<p:column headerText="Precio ">
 							<h:outputText value="#{dato.precio}" />
-
-
-
 						</p:column>
 
-
 					</p:dataTable>
+					<br></br>
 
+					<p:dataTable var="dato" value="#{MBAgendarCita.listaHorarios}" id="tblHora"
+						selection="#{MBAgendarCita.fechaSeleccionada}"
+						selectionMode="single"
+						rowKey="#{dato.idHorario}" >
+						<f:facet name="header">
+   						     Horarios
+    					</f:facet>
+
+
+						<p:column headerText="Fecha Inicio">
+							<h:outputText value="#{dato.fechaInicial}">
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+									timeZone="GMT-5" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Fecha Final">
+							<h:outputText value="#{dato.fechaFinal}">
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+									timeZone="GMT-5" />
+							</h:outputText>
+						</p:column>
+						
+					</p:dataTable>
+					
+					
 					<br></br>
 					<div align="center">
 
 						<p:panel id="datos2" header="Tipo De Cita Y Estado Cliente">
-
-
-
 
 							<h:panelGrid id="campos" columns="2" cellpadding="4">
 
@@ -121,24 +125,10 @@
 
 								</p:selectOneMenu>
 
-								<h:outputText style="    font-weight: bold; "
-									value="Estado Ciente : " />
 
-
-
-
-
-								<p:selectOneMenu id="d52" style="width:200px"
-									value="#{MBAgendarCita.estadoClienteSeleccionado}">
-									<f:selectItem itemLabel="Seleccione..." itemValue="" />
-									<f:selectItems value="#{MBAgendarCita.listaEstadoCliente}" />
-
-								</p:selectOneMenu>
 
 								<h:outputText style="    font-weight: bold; "
 									value="Fecha Programada: " />
-
-
 
 
 								<p:calendar style="width: 200px;" id="d3" maxlength="100"

@@ -13,35 +13,38 @@
 	<h:outputStylesheet library="css" name="default2.css" />
 	<style type="text/css">
 body {
-	margin:50px 0 0 0;
-	padding:20px 0 20px 0;
+	margin: 50px 0 0 0;
+	padding: 20px 0 20px 0;
 	background: #f4f4f4 url(../resources/images/bg.gif) repeat top left;
 	color: white;
 	text-shadow: 1px 1px 1px #fff;
 	overflow-y: scroll;
 }
-
 </style>
 </h:head>
 <h:body>
 	<h:form>
-		<div align="center" >
+		<div align="center">
 			<p:growl id="mensajes" />
-			<p:panel  header="Inicio de Sesión" style="width: 330px;">
-				<p:focus for="username"/>
-				<h:panelGrid columns="2" width="100%" >
+			<p:panel header="Inicio de Sesión" style="width: 330px;">
+				<p:focus for="username" />
+				<h:panelGrid columns="2" width="100%">
 					<h:outputLabel for="username" value="Usuario: " />
 					<p:inputText value="#{MBLogin.user}" id="username" required="false"
 						requiredMessage="Debe ingresar el Usuario" label="Usuario" />
 					<h:outputLabel for="password" value="Contraseña: " />
-					<p:password value="#{MBLogin.pass}" id="password" 
-						requiredMessage="Debe ingresar la Contraseña" required="false" label="Contraseña:" />
+					<p:password value="#{MBLogin.pass}" id="password"
+						requiredMessage="Debe ingresar la Contraseña" required="false"
+						label="Contraseña:" />
 				</h:panelGrid>
 				<f:facet name="footer">
-						<h:panelGrid columns="1" width="100%" style="    text-align: center">
-							<p:commandButton id="loginButton" value="Ingresar" update="mensajes" 
-								styleClass="btn btn-green" style=" font-size: 15px !important;" action="#{MBLogin.navegarControl}" />
-						</h:panelGrid>
+					<h:panelGrid columns="1" width="100%"
+						style="    text-align: center">
+						<p:commandButton id="loginButton" value="Ingresar"
+							update="mensajes" styleClass="btn btn-green"
+							style=" font-size: 15px !important;"
+							action="#{MBLogin.navegarControl}" />
+					</h:panelGrid>
 				</f:facet>
 			</p:panel>
 		</div>

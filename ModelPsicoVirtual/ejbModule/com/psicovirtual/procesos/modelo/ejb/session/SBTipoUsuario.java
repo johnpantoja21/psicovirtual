@@ -64,7 +64,7 @@ public class SBTipoUsuario implements SBTipoUsuarioLocal {
 	}
 
 	@Override
-	public TipoUsuario buscarTipoUsuario(Object id) throws Exception {
+	public TipoUsuario buscarTipoUsuario(int id) throws Exception {
 
 		TipoUsuario entity = (TipoUsuario) sbFacade.findByPrimaryKey(
 				TipoUsuario.class, id);

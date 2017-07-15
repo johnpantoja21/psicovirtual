@@ -40,7 +40,9 @@ public class DNEstadoCliente {
 	}
 
 	
-	
+	public List<EstadoCliente> listaEstadoClienteActivos() throws Exception {
+		return sBEstadoCliente.listaEstadoClienteActivos();
+	}
 	
 	
 

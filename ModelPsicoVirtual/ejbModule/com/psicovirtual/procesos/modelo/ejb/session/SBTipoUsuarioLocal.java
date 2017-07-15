@@ -13,7 +13,7 @@ public interface SBTipoUsuarioLocal {
 
 	public List<TipoUsuario> listaTipoUsuario() throws Exception;
 
-	public TipoUsuario buscarTipoUsuario(Object id) throws Exception;
+	public TipoUsuario buscarTipoUsuario(int id) throws Exception;
 
 	public TipoUsuario modificarTipoUsuario(TipoUsuario tipoUsuarioGuardar) throws Exception;
 

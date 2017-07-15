@@ -16,5 +16,7 @@ public interface SBTipoCitaLocal {
 	public TipoCita modificarTipoCita(TipoCita tipoCitaGuardar) throws Exception;
 
 	public TipoCita guardarTipoCita(TipoCita tipoCitaGuardar) throws Exception;
+	
+	public List<TipoCita> listaTipoCitaActivos() throws Exception;
 
 }

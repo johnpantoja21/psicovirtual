@@ -39,5 +39,9 @@ public class DNTipoCita {
 	public TipoCita guardarTipoCita(TipoCita tipoCitaGuardar) throws Exception {
 		return sBTipoCitaLocal.guardarTipoCita(tipoCitaGuardar);
 	}
+	
+	public List<TipoCita> listaTipoCitaActivos() throws Exception{
+		return sBTipoCitaLocal.listaTipoCitaActivos();
+	}
 
 }

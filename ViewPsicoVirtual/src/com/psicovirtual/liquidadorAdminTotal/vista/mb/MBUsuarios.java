@@ -137,7 +137,7 @@ public class MBUsuarios {
 		insert.setPassword(contrasena);
 		insert.setTelefono(telefono);
 		insert.setUsuario(usuario);
-		insert.setTipoUsuario(dNTipoUsuario.buscarTipoUsuario(new BigDecimal("2")));
+		insert.setTipoUsuario(dNTipoUsuario.buscarTipoUsuario(2));
 		System.out.println("fotoh");
 		int usuarioRepetido = 0;
 		usuarioRepetido = dNUsuario.consultarUsuarioRepetido(insert);
@@ -371,7 +371,7 @@ public class MBUsuarios {
 		insert.setPassword(contrasena);
 		insert.setTelefono(telefono);
 		insert.setUsuario(usuario);
-		insert.setTipoUsuario(dNTipoUsuario.buscarTipoUsuario(new BigDecimal("3")));
+		insert.setTipoUsuario(dNTipoUsuario.buscarTipoUsuario(3));
 		System.out.println("fotoh");
 		int usuarioRepetido = 0;
 		usuarioRepetido = dNUsuario.consultarUsuarioRepetido(insert);

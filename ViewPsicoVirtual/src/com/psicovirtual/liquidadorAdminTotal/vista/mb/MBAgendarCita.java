@@ -24,6 +24,7 @@ import com.psicovirtual.liquidadorAdminTotal.vista.delegado.DNUsuarios;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Cita;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.ClientesPsicologo;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.EstadoCliente;
+import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Horario;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Servicio;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Tema;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.TipoCita;
@@ -53,10 +54,15 @@ public class MBAgendarCita {
 	private String tipoCitaSeleccionado;
 
 	private String estadoClienteSeleccionado;
-	
+
 	private Date fechaProgramada;
+	private Date fechaSeleccionada;
+
+	private List<Horario> listaHorarios;
 
 	public MBAgendarCita() throws Exception {
+		System.out.println("Entro");
+
 		usuarioCliente = "2";
 		if (dNUsuario == null) {
 			dNUsuario = new DNUsuarios();
@@ -71,8 +77,8 @@ public class MBAgendarCita {
 		}
 
 		listaClientesPsicologo = dNUsuario.listaClientePsicologo(usuarioCliente);
-		listaTipoCita = llenarItemsTipoCita(dNTipoCita.listaTipoCita());
-		listaEstadoCliente = llenarItemsEstadoCliente(dNEstadoCliente.listaEstadoCliente());
+		listaTipoCita = llenarItemsTipoCita(dNTipoCita.listaTipoCitaActivos());
+		listaEstadoCliente = llenarItemsEstadoCliente(dNEstadoCliente.listaEstadoClienteActivos());
 
 	}
 
@@ -80,7 +86,6 @@ public class MBAgendarCita {
 		if (dNUsuario == null) {
 			dNUsuario = new DNUsuarios();
 		}
-		
 
 		if (dNTipoCita == null) {
 			dNTipoCita = new DNTipoCita();
@@ -92,54 +97,48 @@ public class MBAgendarCita {
 		if (dNEstadoCita == null) {
 			dNEstadoCita = new DNEstadoCita();
 		}
-		if (clientesPsicologoSeleccionado!=null) {
-			
-			if (servicioSeleccionado!=null) {
-				
-				if (tipoCitaSeleccionado!=null) {
-					
-					if (estadoClienteSeleccionado!=null) {
-						
-						if (fechaProgramada!=null) {
-							
-						
+		if (clientesPsicologoSeleccionado != null) {
+
+			if (servicioSeleccionado != null) {
+
+				if (tipoCitaSeleccionado != null) {
+
+					if (estadoClienteSeleccionado != null) {
+
+						if (fechaProgramada != null) {
+
 							Cita insert = new Cita();
 							insert.setClientesPsicologo(clientesPsicologoSeleccionado);
 							insert.setServicio(servicioSeleccionado);
-							
-							
+
 							insert.setTipoCita(dNTipoCita.buscarTipoCita(new BigDecimal(tipoCitaSeleccionado)));
-							insert.setEstadoCliente(dNEstadoCliente.buscarEstadoCliente(new BigDecimal(estadoClienteSeleccionado)));
+							insert.setEstadoCliente(
+									dNEstadoCliente.buscarEstadoCliente(new BigDecimal(estadoClienteSeleccionado)));
 							insert.setFechaAsignada(fechaProgramada);
 							insert.setEstadoCita(dNEstadoCita.buscarEstadoCita(new BigDecimal("1")));
 							insert.setValorPago(servicioSeleccionado.getPrecio());
 							dNUsuario.guardarCita(insert);
 							mensajes.mostrarMensaje("Cita Agendada Con Exito", 1);
-						}else{
+						} else {
 							mensajes.mostrarMensaje("Debe Ingresar La Fecha De La Cita", 2);
 						}
-						
-						
-						
-					}else{
+
+					} else {
 						mensajes.mostrarMensaje("Debe Seleccionar El Estado Cliente", 2);
 					}
-					
-					
-				}else{
+
+				} else {
 					mensajes.mostrarMensaje("Debe Seleccionar El Tipo Cita", 2);
 				}
-				
-				
-			}else{
+
+			} else {
 				mensajes.mostrarMensaje("Debe Seleccionar El Servicio", 2);
 			}
-			
-			
-		}else{
+
+		} else {
 			mensajes.mostrarMensaje("Debe Seleccionar El Psicologo", 2);
 		}
-		
+
 	}
 
 	public ArrayList<SelectItem> llenarItemsEstadoCliente(List<EstadoCliente> estadoCliente) throws Exception {
@@ -164,12 +163,34 @@ public class MBAgendarCita {
 		if (dNUsuario == null) {
 			dNUsuario = new DNUsuarios();
 		}
+
 		if (clientesPsicologoSeleccionado != null) {
 
 			listaServicio = dNUsuario
 					.listaServiciosPsicologo(clientesPsicologoSeleccionado.getUsuario2().getIdUsuario() + "");
+
+			listaHorarios = dNUsuario.listaHorarioPsicologoDisponible(clientesPsicologoSeleccionado.getUsuario2());
 		}
 
+	}
+	
+	
+	
+
+	public Date getFechaSeleccionada() {
+		return fechaSeleccionada;
+	}
+
+	public void setFechaSeleccionada(Date fechaSeleccionada) {
+		this.fechaSeleccionada = fechaSeleccionada;
+	}
+
+	public List<Horario> getListaHorarios() {
+		return listaHorarios;
+	}
+
+	public void setListaHorarios(List<Horario> listaHorarios) {
+		this.listaHorarios = listaHorarios;
 	}
 
 	public String getUsuarioCliente() {

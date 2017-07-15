@@ -9,7 +9,10 @@ import javax.faces.context.FacesContext;
 
 import com.psicovirtual.estandar.vista.mb.MBMensajes;
 import com.psicovirtual.liquidadorAdminTotal.vista.delegado.DNEstadoCita;
+import com.psicovirtual.liquidadorAdminTotal.vista.delegado.DNTipoUsuario;
+import com.psicovirtual.liquidadorAdminTotal.vista.delegado.DNUsuarios;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.EstadoCita;
+import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Usuario;
 
 @ManagedBean(name = "MBLogin")
 @SessionScoped
@@ -17,15 +20,24 @@ public class MBLogin {
 	MBMensajes mensajes = new MBMensajes();
 	private String user;
 	private String pass;
+	DNUsuarios dnUsuarios;
 
 	public MBLogin() throws Exception {
 
 	}
 
-	public void navegarControl() {
+	public void navegarControl() throws Exception {
+		if (dnUsuarios == null) {
+			dnUsuarios = new DNUsuarios();
+		}
+		Usuario usuario = new Usuario();
+		usuario.setUsuario(user);
+		usuario.setPassword(pass);
 
-		if (user.length() > 0) {
+		if (dnUsuarios.consultarUsuarioInicio(usuario) > 0) {
+			// if (user.length() > 0) {
 			user = user.toUpperCase();
+
 			try {
 				FacesContext context = FacesContext.getCurrentInstance();
 				ExternalContext extContext = context.getExternalContext();
@@ -36,12 +48,14 @@ public class MBLogin {
 				// TODO: Add catch code
 				exception.printStackTrace();
 			}
+			// }
+		} else {
+			mensajes.mostrarMensaje("Usuario o Contraseña incorrecto. Vuelve a intentarlo", 3);
 		}
-
 	}
 
 	public void cerrarSesion() {
-		System.out.println("paso por cerra");
+
 		try {
 
 			FacesContext context = FacesContext.getCurrentInstance();

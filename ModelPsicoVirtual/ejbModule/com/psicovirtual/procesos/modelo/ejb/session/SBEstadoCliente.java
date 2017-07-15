@@ -62,7 +62,14 @@ public class SBEstadoCliente implements SBEstadoClienteLocal {
   		List<EstadoCliente> lista = sbFacade.executeQuery(query,
   				null);
   		return lista;
-
+  	}
+  	
+  	@Override
+  	public List<EstadoCliente> listaEstadoClienteActivos() throws Exception {
+  		String query = "select o from EstadoCliente o where o.estado='ACTIVO'";
+  		List<EstadoCliente> lista = sbFacade.executeQuery(query,
+  				null);
+  		return lista;
   	}
 
   	@Override

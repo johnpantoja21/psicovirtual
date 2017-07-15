@@ -53,7 +53,16 @@ public class SBTipoCita implements SBTipoCitaLocal {
 
 	@Override
 	public List<TipoCita> listaTipoCita() throws Exception {
-		String query = "select o from TipoCita o ";
+		String query = "select o from TipoCita o";
+		List<TipoCita> lista = sbFacade.executeQuery(query,
+				null);
+		return lista;
+
+	}
+	
+	@Override
+	public List<TipoCita> listaTipoCitaActivos() throws Exception {
+		String query = "select o from TipoCita o where o.estado='ACTIVO'";
 		List<TipoCita> lista = sbFacade.executeQuery(query,
 				null);
 		return lista;

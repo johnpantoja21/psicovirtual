@@ -29,7 +29,7 @@ public class DNTipoUsuario {
 		return sBTipoUsuarioLocal.listaTipoUsuario();
 	}
 
-	public TipoUsuario buscarTipoUsuario(Object id) throws Exception {
+	public TipoUsuario buscarTipoUsuario(int id) throws Exception {
 		return sBTipoUsuarioLocal.buscarTipoUsuario(id);
 	}
 

@@ -32,7 +32,7 @@
 								value="Nombre Psicologo : " />
 						</div>
 						<div class="ui-g-12 ui-md-6 ui-lg-3">
-							<p:inputText  id="d1" maxlength="100"
+							<p:inputText id="d1" maxlength="100"
 								value="#{MBPsicologos.nombreBusqueda}">
 							</p:inputText>
 						</div>
@@ -41,13 +41,14 @@
 								value="Servicios : " />
 						</div>
 						<div class="ui-g-12 ui-md-6 ui-lg-3">
-							<p:inputText  id="d2" maxlength="100"
+							<p:inputText id="d2" maxlength="100"
 								value="#{MBPsicologos.servicioBusqueda}">
 							</p:inputText>
 						</div>
 						<div class="ui-g-12 ui-md-6 ui-lg-3">
 							<p:commandButton value="Buscar" style="width: 220px;"
-								onstart="PF('statusDialog').show();  " update="formPrincipal,messages1"
+								onstart="PF('statusDialog').show();  "
+								update="formPrincipal,messages1"
 								oncomplete="PF('statusDialog').hide();"
 								action="#{MBPsicologos.buscar}" styleClass="btn btn-blue"
 								id="buscar">
@@ -61,20 +62,13 @@
 
 					<br></br>
 					<br></br>
-<p:separator />
-					<p:repeat   value="#{MBPsicologos.listaPsicologos}" var="dato">
+					<p:separator />
+					<p:repeat value="#{MBPsicologos.listaPsicologos}" var="dato">
 
 
 						<div class="ui-g">
 							<div class="ui-g-12 ui-md-6 ui-lg-3">
-
-
-
-
-
-								<p:graphicImage width="200" library="fotos"
-									name="#{dato.foto}" />
-
+								<p:graphicImage width="200" library="fotos" name="#{dato.foto}" />
 							</div>
 
 							<div class="ui-g-12 ui-md-6 ui-lg-6">
@@ -100,17 +94,17 @@
 									</h:panelGrid>
 								</p:outputPanel>
 							</div>
+							
 							<div class="ui-g-12 ui-md-6 ui-lg-3">
 								<p:outputPanel style="text-align: right;">
 									<h:panelGrid columns="1" cellpadding="5">
-
-										<p:commandButton value="Pre Consulta" style="width: 220px;"
-											onstart="PF('statusDialog').show();  "
-											oncomplete="PF('statusDialog').hide();"
-											action="#{MBAgendarCita.guardarCita}"
+										<p:growl id="messages" sticky="true" />
+										<p:commandButton value="Añadir Psicologo"
+											style="width: 220px;" update="messages"
+											action="#{MBPsicologos.asignarPsicologoUsuario(dato,MBLogin.user)}"
 											styleClass="btn btn-blue" id="guardar">
 										</p:commandButton>
-									
+
 										<p:commandButton value="Mas Información" style="width: 220px;"
 											onstart="PF('statusDialog').show();  "
 											oncomplete="PF('statusDialog').hide();"

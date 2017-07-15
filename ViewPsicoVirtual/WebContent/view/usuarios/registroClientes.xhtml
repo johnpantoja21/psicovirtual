@@ -16,7 +16,7 @@
 
 
 
-			<p:growl id="messages1"  life="60000" />
+			<p:growl id="messages1" life="60000" />
 
 			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
 				closable="false" resizable="false" showHeader="false">
@@ -25,9 +25,6 @@
 			<div align="left">
 
 				<p:panel id="datos">
-
-
-
 
 
 
@@ -129,11 +126,8 @@
 
 
 							<p:inputText style="width: 200px;" id="d51" maxlength="100"
-							label="Correo Electronico"
-							validatorMessage="Correo No valido"
+								label="Correo Electronico" validatorMessage="Correo No valido"
 								required="true" requiredMessage="Debe Ingresar El Correo"
-								
-								
 								value="#{MBUsuarios.correo}">
 								<f:validateRegex
 									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
@@ -196,42 +190,38 @@
 								requiredMessage="Debe Ingresar La Descripción Del Perfil"></p:inputTextarea>
 						</div>
 						<div class="ui-g-12 ui-md-6 ui-lg-3">
-						
-								<h:outputText style="    font-weight: bold; "
-								value="Foto : " />
-						
+
+							<h:outputText style="    font-weight: bold; " value="Foto : " />
+
 						</div>
 						<div class="ui-g-12 ui-md-6 ui-lg-3">
-						
-						<p:fileUpload  allowTypes="/(\.|\/)(jpg)$/"  value="#{MBUsuarios.fotoUsuario}" mode="simple" skinSimple="true"/>
-						
+
+							<p:fileUpload allowTypes="/(\.|\/)(jpg)$/"
+								value="#{MBUsuarios.fotoUsuario}" mode="simple"
+								skinSimple="true" />
+
 						</div>
 
 
 						<div class="ui-g-12 ui-md-6 ui-lg-4">
 							<p:commandButton value="Guardar" style="width: 220px;"
-								onstart="PF('statusDialog').show();  "
-								
-								ajax="false" 
+								onstart="PF('statusDialog').show();  " ajax="false"
 								oncomplete="PF('statusDialog').hide();" update="messages1"
-								actionListener="#{MBUsuarios.guardarCliente}" styleClass="btn btn-green"
-								id="guardar">
+								actionListener="#{MBUsuarios.guardarCliente}"
+								styleClass="btn btn-green" id="guardar">
 							</p:commandButton>
 						</div>
 
 						<div class="ui-g-12 ui-md-6 ui-lg-4">
 							<p:commandButton value="Limpiar" style="width: 220px;"
 								onstart="PF('statusDialog').show();  "
-								oncomplete="PF('statusDialog').hide();"
-								immediate="true"
-								resetValues="true"
-								update=":formPrincipal:datos"
-								
+								oncomplete="PF('statusDialog').hide();" immediate="true"
+								resetValues="true" update=":formPrincipal:datos"
 								action="#{MBUsuarios.limpiarUsuario}" styleClass="btn btn-blue"
 								id="limpiar">
 							</p:commandButton>
 						</div>
-						
+
 						<div class="ui-g-12 ui-md-6 ui-lg-4">
 							<p:commandButton value="Regresar" style="width: 220px;"
 								onstart="PF('statusDialog').show();  "

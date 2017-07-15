@@ -90,7 +90,9 @@ public class DNUsuarios {
 		return sBUsuariosLocal.listaHorarioPsicologo(user);
 	}
 	
-	
+	public List<Horario> listaHorarioPsicologoDisponible(Usuario user) throws Exception {
+		return sBUsuariosLocal.listaHorarioPsicoDisponibles(user);
+	}
 	
 
 }

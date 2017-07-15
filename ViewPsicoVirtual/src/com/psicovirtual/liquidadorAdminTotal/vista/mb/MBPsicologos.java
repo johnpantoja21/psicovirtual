@@ -1,5 +1,6 @@
 package com.psicovirtual.liquidadorAdminTotal.vista.mb;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Usuario;
 
 @ManagedBean(name = "MBPsicologos")
 @SessionScoped
-public class MBPsicologos {
+public class MBPsicologos implements Serializable {
 	MBMensajes mensajes = new MBMensajes();
 	DNEstadoCita dNEstadoCita;
 	DNUsuarios dNUsuario;
@@ -64,7 +65,8 @@ public class MBPsicologos {
 	private List<Horario> listaHorarios;
 
 	private ScheduleModel eventModel;
-	 private ScheduleEvent event = new DefaultScheduleEvent();
+	private ScheduleEvent event = new DefaultScheduleEvent();
+
 	public Date getRandomDate(Date base) {
 		Calendar date = Calendar.getInstance();
 		date.setTime(base);
@@ -97,10 +99,10 @@ public class MBPsicologos {
 		if (dNUsuario == null) {
 			dNUsuario = new DNUsuarios();
 		}
-		
 
 		Usuario usuarioModificar = dNUsuario.consultarDetalleUsuarioByUsuario(user);
-		if (usuarioModificar != null) {
+
+		if (usuarioModificar.getTipoUsuario().getIdTipoUsu() == 2) {
 			psicologoSelecionado = usuarioModificar;
 
 			listaHorarios = dNUsuario.listaHorarioPsicologo(psicologoSelecionado);
@@ -116,11 +118,10 @@ public class MBPsicologos {
 		}
 
 	}
-	
-	
-	   public void onEventSelect(SelectEvent selectEvent) {
-	        event = (ScheduleEvent) selectEvent.getObject();
-	    }
+
+	public void onEventSelect(SelectEvent selectEvent) {
+		event = (ScheduleEvent) selectEvent.getObject();
+	}
 
 	public void inactivar(Horario horario) throws Exception {
 
@@ -136,7 +137,6 @@ public class MBPsicologos {
 			dNUsuario.modificarHorario(horario);
 
 		}
-
 	}
 
 	public MBPsicologos() throws Exception {
@@ -147,6 +147,7 @@ public class MBPsicologos {
 
 		listaPsicologos = dNUsuario.listarPsicologos();
 		for (int i = 0; i < listaPsicologos.size(); i++) {
+
 			if (listaPsicologos.get(i).getDescripcionPerfil().length() > 80) {
 				listaPsicologos.get(i)
 						.setDescripcionPerfil(listaPsicologos.get(i).getDescripcionPerfil().substring(0, 80) + "...");
@@ -161,13 +162,30 @@ public class MBPsicologos {
 				}
 			}
 			listaPsicologos.get(i).setServicios(lista);
-
 		}
+	}
 
+	public void asignarPsicologoUsuario(Usuario parametroUsuario, String userCliente) throws Exception {
+		MBClientePsicologo mbClientePsicologo = new MBClientePsicologo();
+		ClientesPsicologo relacion = new ClientesPsicologo();
+
+		Usuario usuarioPsicologo = dNUsuario.consultarDetalleUsuarioByUsuario(parametroUsuario.getUsuario()); // psico
+		Usuario usuarioCliente = dNUsuario.consultarDetalleUsuarioByUsuario(userCliente);
+
+		relacion.setUsuario1(usuarioCliente);
+		relacion.setUsuario2(usuarioPsicologo);
+
+		if (mbClientePsicologo.verificarRelacionExistente(relacion) <= 0) {
+			if (mbClientePsicologo.guardarAsignacion(relacion) != null) {
+				mensajes.mostrarMensaje("Asignacion exitosa", 1);
+			}
+		}else{
+			mensajes.mostrarMensaje("El psicologo ya se encuentra asignado", 3);
+		}
 	}
 
 	public void masInformacion(Usuario parameterUsuario) {
-
+		// psicologoSelecionado = null;
 		psicologoSelecionado = parameterUsuario;
 
 		try {
@@ -177,20 +195,21 @@ public class MBPsicologos {
 					"/view/gestion/informacionPsicologos.xhtml"));
 			extContext.redirect(url2);
 		} catch (Exception e) {
-			System.out.println("Error en el metodo iniciarSesion: " + e);
+			System.out.println("Error: " + e);
 		}
 
 	}
 
 	public void regresarPsicologos() {
 		try {
+
 			FacesContext context = FacesContext.getCurrentInstance();
 			ExternalContext extContext = context.getExternalContext();
 			String url2 = extContext.encodeActionURL(context.getApplication().getViewHandler().getActionURL(context,
 					"/view/gestion/busquedaPsicologos.xhtml"));
 			extContext.redirect(url2);
 		} catch (Exception e) {
-			System.out.println("Error en el metodo iniciarSesion: " + e);
+			System.out.println("Error: " + e);
 		}
 
 	}

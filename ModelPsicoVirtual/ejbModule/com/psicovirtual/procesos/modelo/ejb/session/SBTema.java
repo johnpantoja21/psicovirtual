@@ -16,48 +16,38 @@ import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Tema;
 @LocalBean
 public class SBTema implements SBTemaLocal {
 
-    /**
-     * Default constructor. 
-     */
-    public SBTema() {
-        // TODO Auto-generated constructor stub
-    }
-    
-    
-    @EJB
+	/**
+	 * Default constructor.
+	 */
+	public SBTema() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@EJB
 	SBFacadeProcesosLocal sbFacade;
 
-	
 	@Override
-	public Tema guardarTema(
-			Tema temaGuardar) throws Exception {
+	public Tema guardarTema(Tema temaGuardar) throws Exception {
 		// TODO Auto-generated method stub
 
-		Tema entity = (Tema) sbFacade
-				.insertEntity(temaGuardar);
+		Tema entity = (Tema) sbFacade.insertEntity(temaGuardar);
 		return entity;
 
 	}
-	
-	
-	
+
 	@Override
-	public Tema modificarTema(
-			Tema temaGuardar) throws Exception {
+	public Tema modificarTema(Tema temaGuardar) throws Exception {
 		// TODO Auto-generated method stub
 
-		Tema entity = (Tema) sbFacade
-				.updateEntity(temaGuardar);
+		Tema entity = (Tema) sbFacade.updateEntity(temaGuardar);
 		return entity;
 
 	}
-	
 
 	@Override
 	public List<Tema> listaTema() throws Exception {
 		String query = "select o from Tema o ";
-		List<Tema> lista = sbFacade.executeQuery(query,
-				null);
+		List<Tema> lista = sbFacade.executeQuery(query, null);
 		return lista;
 
 	}
@@ -65,8 +55,7 @@ public class SBTema implements SBTemaLocal {
 	@Override
 	public Tema buscarTema(Object id) throws Exception {
 
-		Tema entity = (Tema) sbFacade.findByPrimaryKey(
-				Tema.class, id);
+		Tema entity = (Tema) sbFacade.findByPrimaryKey(Tema.class, id);
 		return entity;
 	}
 

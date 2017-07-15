@@ -33,4 +33,7 @@ public interface SBUsuariosLocal {
 	public Horario guardarHorario(
 			Horario horarioGuardar) throws Exception;
 	public List<Horario> listaHorarioPsicologo(Usuario user) throws Exception ;
+	public List<Horario> listaHorarioPsicoDisponibles(Usuario user) throws Exception;
+	
+
 }
