@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 
 import com.psicovirtual.estandar.modelo.ejb.session.SBFacadeProcesosLocal;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.TiposServicio;
+import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Usuario;
 
 /**
  * Session Bean implementation class SBTiposServicio
@@ -69,6 +70,17 @@ public class SBTiposServicio implements SBTiposServicioLocal {
 		TiposServicio entity = (TiposServicio) sbFacade.findByPrimaryKey(
 				TiposServicio.class, id);
 		return entity;
+	}
+	
+	
+
+	@Override
+	public List<TiposServicio> listaTiposServicioActivos() throws Exception {
+		String query = "select o from TiposServicio o where o.estado='ACTIVO'";
+		List<TiposServicio> lista = sbFacade.executeQuery(query,
+				null);
+		return lista;
+
 	}
 	
     

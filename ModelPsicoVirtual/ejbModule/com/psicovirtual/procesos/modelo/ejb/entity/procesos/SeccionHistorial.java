@@ -2,6 +2,7 @@ package com.psicovirtual.procesos.modelo.ejb.entity.procesos;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -18,10 +19,10 @@ public class SeccionHistorial implements Serializable {
 
 	@Id
 	@Column(name="ID_SECCION")
-	private int idSeccion;
+	private BigDecimal idSeccion;
 
-	@Lob
-	private byte[] descripcion;
+	
+	private String descripcion;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="FECHA_HISTORIAL")
@@ -44,19 +45,20 @@ public class SeccionHistorial implements Serializable {
 	public SeccionHistorial() {
 	}
 
-	public int getIdSeccion() {
+	public BigDecimal getIdSeccion() {
 		return this.idSeccion;
 	}
 
-	public void setIdSeccion(int idSeccion) {
+	public void setIdSeccion(BigDecimal idSeccion) {
 		this.idSeccion = idSeccion;
 	}
 
-	public byte[] getDescripcion() {
-		return this.descripcion;
+	
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setDescripcion(byte[] descripcion) {
+	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 

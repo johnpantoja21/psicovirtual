@@ -2,6 +2,7 @@ package com.psicovirtual.liquidadorAdminTotal.vista.mb;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +14,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.ScheduleEvent;
+import org.primefaces.model.ScheduleModel;
 import org.primefaces.model.UploadedFile;
 
 import com.psicovirtual.estandar.vista.mb.MBMensajes;
@@ -37,8 +43,10 @@ public class MBAgendarCita {
 	DNEstadoCita dNEstadoCita;
 	DNUsuarios dNUsuario;
 	DNTipoCita dNTipoCita;
-	private String usuarioCliente;
 	DNEstadoCliente dNEstadoCliente;
+
+	private String usuarioCliente;
+
 	private List<ClientesPsicologo> listaClientesPsicologo;
 
 	private ClientesPsicologo clientesPsicologoSeleccionado;
@@ -56,14 +64,32 @@ public class MBAgendarCita {
 	private String estadoClienteSeleccionado;
 
 	private Date fechaProgramada;
-	private Date fechaSeleccionada;
+	private Horario fechaSeleccionada;
 
 	private List<Horario> listaHorarios;
+	private List<Cita> listaPendientes;
+
+	private int cantidadHora;
+	private int precioHora;
+
+	private ScheduleModel eventModel;
+	private ScheduleEvent event = new DefaultScheduleEvent();
+
+	public Date getRandomDate(Date base) {
+		Calendar date = Calendar.getInstance();
+		date.setTime(base);
+		date.add(Calendar.DATE, ((int) (Math.random() * 30)) + 1);
+		return date.getTime();
+	}
 
 	public MBAgendarCita() throws Exception {
-		System.out.println("Entro");
+		
+	}
 
-		usuarioCliente = "2";
+	public void cargar(String user) throws Exception {
+
+		limpiarObjetos();
+
 		if (dNUsuario == null) {
 			dNUsuario = new DNUsuarios();
 		}
@@ -76,13 +102,41 @@ public class MBAgendarCita {
 			dNEstadoCliente = new DNEstadoCliente();
 		}
 
-		listaClientesPsicologo = dNUsuario.listaClientePsicologo(usuarioCliente);
+		Usuario usuarioModificar = dNUsuario.consultarDetalleUsuarioByUsuario(user);
+
+		listaClientesPsicologo = dNUsuario.listaClientePsicologo(usuarioModificar.getIdUsuario() + "");
+
 		listaTipoCita = llenarItemsTipoCita(dNTipoCita.listaTipoCitaActivos());
 		listaEstadoCliente = llenarItemsEstadoCliente(dNEstadoCliente.listaEstadoClienteActivos());
 
 	}
 
-	public void guardarCita() throws Exception {
+	public void limpiarObjetos() {
+		usuarioCliente = "";
+
+		listaClientesPsicologo = new ArrayList<ClientesPsicologo>();
+
+		clientesPsicologoSeleccionado = new ClientesPsicologo();
+
+		listaServicio = new ArrayList<Servicio>();
+
+		servicioSeleccionado = new Servicio();
+
+		listaTipoCita = new ArrayList<SelectItem>();
+
+		listaEstadoCliente = new ArrayList<SelectItem>();
+
+		tipoCitaSeleccionado = "";
+
+		estadoClienteSeleccionado = "";
+
+		fechaProgramada = new Date();
+		fechaSeleccionada = new Horario();
+
+		listaHorarios = new ArrayList<Horario>();
+	}
+
+	public void guardarCita(String user) throws Exception {
 		if (dNUsuario == null) {
 			dNUsuario = new DNUsuarios();
 		}
@@ -103,29 +157,37 @@ public class MBAgendarCita {
 
 				if (tipoCitaSeleccionado != null) {
 
-					if (estadoClienteSeleccionado != null) {
+					// if (estadoClienteSeleccionado != null) {
 
-						if (fechaProgramada != null) {
+					if (fechaSeleccionada != null) {
 
-							Cita insert = new Cita();
-							insert.setClientesPsicologo(clientesPsicologoSeleccionado);
-							insert.setServicio(servicioSeleccionado);
+						Cita insert = new Cita();
+						insert.setClientesPsicologo(clientesPsicologoSeleccionado);
+						insert.setServicio(servicioSeleccionado);
 
-							insert.setTipoCita(dNTipoCita.buscarTipoCita(new BigDecimal(tipoCitaSeleccionado)));
-							insert.setEstadoCliente(
-									dNEstadoCliente.buscarEstadoCliente(new BigDecimal(estadoClienteSeleccionado)));
-							insert.setFechaAsignada(fechaProgramada);
-							insert.setEstadoCita(dNEstadoCita.buscarEstadoCita(new BigDecimal("1")));
-							insert.setValorPago(servicioSeleccionado.getPrecio());
-							dNUsuario.guardarCita(insert);
-							mensajes.mostrarMensaje("Cita Agendada Con Exito", 1);
-						} else {
-							mensajes.mostrarMensaje("Debe Ingresar La Fecha De La Cita", 2);
-						}
+						insert.setTipoCita(dNTipoCita.buscarTipoCita(new BigDecimal(tipoCitaSeleccionado)));
+						// insert.setEstadoCliente(
+						// dNEstadoCliente.buscarEstadoCliente(new
+						// BigDecimal(estadoClienteSeleccionado)));
+						insert.setHorario(fechaSeleccionada);
+						insert.setEstadoCita(dNEstadoCita.buscarEstadoCita(new BigDecimal("1")));
+						insert.setValorPago(precioHora);
+						insert.setEstadoPago("PENDIENTE");
+						fechaSeleccionada.setEstado("ASIGNADO");
+						dNUsuario.modificarHorario(fechaSeleccionada);
+
+						dNUsuario.guardarCita(insert);
+						mensajes.mostrarMensaje("Cita Agendada Con Exito", 1);
+						cargar(user);
 
 					} else {
-						mensajes.mostrarMensaje("Debe Seleccionar El Estado Cliente", 2);
+						mensajes.mostrarMensaje("Debe seleccionar La Fecha De La Cita", 2);
 					}
+
+					// } else {
+					// mensajes.mostrarMensaje("Debe Seleccionar El Estado
+					// Cliente", 2);
+					// }
 
 				} else {
 					mensajes.mostrarMensaje("Debe Seleccionar El Tipo Cita", 2);
@@ -138,6 +200,46 @@ public class MBAgendarCita {
 		} else {
 			mensajes.mostrarMensaje("Debe Seleccionar El Psicologo", 2);
 		}
+
+	}
+
+	public void onEventSelect(SelectEvent selectEvent) {
+		event = (ScheduleEvent) selectEvent.getObject();
+	}
+
+	public void cargarUsuario(String user) throws Exception {
+
+		if (dNUsuario == null) {
+			dNUsuario = new DNUsuarios();
+		}
+
+		Usuario usuarioModificar = dNUsuario.consultarDetalleUsuarioByUsuario(user);
+
+			listaPendientes = dNUsuario.listaCitasPendientesCliente(usuarioModificar);
+
+			eventModel = new DefaultScheduleModel();
+			for (int i = 0; i < listaPendientes.size(); i++) {
+				
+				eventModel.addEvent(new DefaultScheduleEvent(
+						"Cita: " + listaPendientes.get(i).getTipoCita().getDescripcion() + "\n Nombre Psicologo: "
+								+ listaPendientes.get(i).getClientesPsicologo().getUsuario2().getNombre() + " "
+								+ listaPendientes.get(i).getClientesPsicologo().getUsuario2().getApellidos(),
+						listaPendientes.get(i).getHorario().getFechaInicial(),
+						listaPendientes.get(i).getHorario().getFechaFinal()));
+
+			}
+
+	}
+
+	public void setToBean() {
+
+	}
+
+	public void cargarHora() {
+		int diferenciaHora = fechaSeleccionada.getFechaInicial().getHours()
+				- fechaSeleccionada.getFechaFinal().getHours();
+		cantidadHora = (diferenciaHora * -1);
+		precioHora = servicioSeleccionado.getPrecio() * cantidadHora;
 
 	}
 
@@ -173,15 +275,52 @@ public class MBAgendarCita {
 		}
 
 	}
-	
-	
-	
 
-	public Date getFechaSeleccionada() {
+	public List<Cita> getListaPendientes() {
+		return listaPendientes;
+	}
+
+	public void setListaPendientes(List<Cita> listaPendientes) {
+		this.listaPendientes = listaPendientes;
+	}
+
+	public ScheduleModel getEventModel() {
+		return eventModel;
+	}
+
+	public void setEventModel(ScheduleModel eventModel) {
+		this.eventModel = eventModel;
+	}
+
+	public ScheduleEvent getEvent() {
+		return event;
+	}
+
+	public void setEvent(ScheduleEvent event) {
+		this.event = event;
+	}
+
+	public int getCantidadHora() {
+		return cantidadHora;
+	}
+
+	public void setCantidadHora(int cantidadHora) {
+		this.cantidadHora = cantidadHora;
+	}
+
+	public int getPrecioHora() {
+		return precioHora;
+	}
+
+	public void setPrecioHora(int precioHora) {
+		this.precioHora = precioHora;
+	}
+
+	public Horario getFechaSeleccionada() {
 		return fechaSeleccionada;
 	}
 
-	public void setFechaSeleccionada(Date fechaSeleccionada) {
+	public void setFechaSeleccionada(Horario fechaSeleccionada) {
 		this.fechaSeleccionada = fechaSeleccionada;
 	}
 

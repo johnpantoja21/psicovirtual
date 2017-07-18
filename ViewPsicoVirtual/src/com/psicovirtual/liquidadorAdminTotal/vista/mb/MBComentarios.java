@@ -52,14 +52,13 @@ public class MBComentarios {
 	private Date fechaProgramada;
 	private String testimonio;
 
-	public MBComentarios() throws Exception {
-		cargarListados();
-	}
-	
-	
-	public void cargarListados() throws Exception{
-		usuarioCliente = "2";
+	public MBComentarios() {
 
+	}
+
+	public void cargarListados(String userCliente) throws Exception {
+
+		limpiarObjetos();
 		if (dNUsuario == null) {
 			dNUsuario = new DNUsuarios();
 		}
@@ -67,10 +66,17 @@ public class MBComentarios {
 		if (dNComentarios == null) {
 			dNComentarios = new DNComentarios();
 		}
-
-		listaClientesPsicologo = dNUsuario.listaClientePsicologo(usuarioCliente);
-
+		
+		Usuario x = dNUsuario.consultarDetalleUsuarioByUsuario(userCliente);
+		listaClientesPsicologo = dNUsuario.listaClientePsicologo(x.getIdUsuario() + "");
 		listaComentarios = dNComentarios.listarPsicologosBlogs();
+		
+	}
+
+	public void limpiarObjetos() {
+		clientesPsicologoSeleccionado = new ClientesPsicologo();
+		fechaProgramada = new Date();
+		testimonio = "";
 	}
 
 	public void publicarExperiencia(String userCliente) throws Exception {
@@ -88,27 +94,29 @@ public class MBComentarios {
 		}
 
 		Usuario x = dNUsuario.consultarDetalleUsuarioByUsuario(userCliente);
-
+		
 		int idClientePsico = dnClientePsico.consultarRelacionClientePsicologo(
 				clientesPsicologoSeleccionado.getUsuario2().getIdUsuario() + "", x.getIdUsuario() + "");
 
 		Comentario nuevo = new Comentario();
-		ClientesPsicologo clie = new ClientesPsicologo();
-
-		clie.setIdCliePsico(idClientePsico);
-		nuevo.setClientesPsicologo(clie);
+		
+		
+		ClientesPsicologo vat = dnClientePsico.buscarClientesPsicologo(idClientePsico);
+		
+		
+		nuevo.setClientesPsicologo(vat);
 		nuevo.setEstado("ACTIVO");
 
 		fechaProgramada = new Date();
 
-		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
-	    Date date = formatter.parse(formatter.format(fechaProgramada));
+		Date date = formatter.parse(formatter.format(fechaProgramada));
 		nuevo.setFechaPublicacion(date);
+		nuevo.setTestimonio(testimonio);
 
 		if (dNComentarios.publicarComentario(nuevo) != null) {
-			cargarListados();
+			cargarListados(userCliente);
 			mensajes.mostrarMensaje("La publicacion se realizo con exito", 1);
 		}
 

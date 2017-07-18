@@ -63,6 +63,7 @@ public class MBPsicologos implements Serializable {
 	private Date fechaFinal;
 
 	private List<Horario> listaHorarios;
+	private List<Cita> listaPendientes;
 
 	private ScheduleModel eventModel;
 	private ScheduleEvent event = new DefaultScheduleEvent();
@@ -77,43 +78,74 @@ public class MBPsicologos implements Serializable {
 		return date.getTime();
 	}
 
-	public void guardarHorario() throws Exception {
+	public void guardarHorario(String user) throws Exception {
 
 		if (dNUsuario == null) {
 			dNUsuario = new DNUsuarios();
 		}
 
+		Usuario usuarioModificar = dNUsuario.consultarDetalleUsuarioByUsuario(user);
 		Horario insert = new Horario();
 
-		insert.setUsuario(psicologoSelecionado);
-		insert.setFechaInicial(fechaInicial);
-		insert.setFechaFinal(fechaFinal);
-		insert.setEstado("ACTIVO");
+		insert.setUsuario(usuarioModificar);
 
-		dNUsuario.guardarHorario(insert);
-		listaHorarios = dNUsuario.listaHorarioPsicologo(psicologoSelecionado);
+		if (fechaInicial != null || fechaFinal != null) {
+			int diferenciaHora = fechaInicial.getHours() - fechaFinal.getHours();
+			int diferenciaMinutos = fechaInicial.getMinutes() + fechaFinal.getMinutes();
+			System.out.println("Diferencia minutos " + diferenciaMinutos);
+
+			if (diferenciaHora == 0) {
+				mensajes.mostrarMensaje("No se encuentra una hora definida. valide de nuevo", 3);
+			} else {
+				if (diferenciaMinutos == 0 || diferenciaMinutos == 60) {
+					insert.setFechaInicial(fechaInicial);
+					insert.setFechaFinal(fechaFinal);
+					insert.setEstado("ACTIVO");
+
+					dNUsuario.guardarHorario(insert);
+					mensajes.mostrarMensaje("Registro exitoso", 1);
+					listaHorarios = dNUsuario.listaHorarioPsicologo(usuarioModificar);
+				} else {
+					mensajes.mostrarMensaje("Valide los minutos entre rango de 1 hora", 3);
+				}
+			}
+
+		} else {
+			mensajes.mostrarMensaje("Debe ingresar una hora inicial y hora final", 3);
+		}
+
 	}
 
-	public void cargarUsuario(String user) throws Exception {
-		System.out.println("java " + user);
+	public void cargarHorario(String user) throws Exception {
 		if (dNUsuario == null) {
 			dNUsuario = new DNUsuarios();
 		}
 
 		Usuario usuarioModificar = dNUsuario.consultarDetalleUsuarioByUsuario(user);
 
-		if (usuarioModificar.getTipoUsuario().getIdTipoUsu() == 2) {
-			psicologoSelecionado = usuarioModificar;
+		listaHorarios = dNUsuario.listaHorarioPsicologo(usuarioModificar);
+	}
 
-			listaHorarios = dNUsuario.listaHorarioPsicologo(psicologoSelecionado);
+	public void cargarUsuario(String user) throws Exception {
+		if (dNUsuario == null) {
+			dNUsuario = new DNUsuarios();
+		}
+		System.out.println("Ingreso 1");
+		Usuario usuarioModificar = dNUsuario.consultarDetalleUsuarioByUsuario(user);
+		System.out.println("Ingreso 2");
+		psicologoSelecionado = usuarioModificar;
+		System.out.println("Ingreso 3");
+		listaPendientes = dNUsuario.listaCitasPendientes(psicologoSelecionado);
+		System.out.println("Ingreso 4");
+		eventModel = new DefaultScheduleModel();
+		for (int i = 0; i < listaPendientes.size(); i++) {
 
-			eventModel = new DefaultScheduleModel();
-			for (int i = 0; i < listaHorarios.size(); i++) {
-
-				eventModel.addEvent(new DefaultScheduleEvent("Cita ", listaHorarios.get(i).getFechaInicial(),
-						listaHorarios.get(i).getFechaFinal()));
-
-			}
+			eventModel.addEvent(new DefaultScheduleEvent(
+					"Cita: " + listaPendientes.get(i).getTipoCita().getDescripcion() + "\n Nombre: "
+							+ listaPendientes.get(i).getClientesPsicologo().getUsuario1().getNombre() + " "
+							+ listaPendientes.get(i).getClientesPsicologo().getUsuario1().getApellidos(),
+					listaPendientes.get(i).getHorario().getFechaInicial(),
+					listaPendientes.get(i).getHorario().getFechaFinal()));
 
 		}
 
@@ -179,7 +211,7 @@ public class MBPsicologos implements Serializable {
 			if (mbClientePsicologo.guardarAsignacion(relacion) != null) {
 				mensajes.mostrarMensaje("Asignacion exitosa", 1);
 			}
-		}else{
+		} else {
 			mensajes.mostrarMensaje("El psicologo ya se encuentra asignado", 3);
 		}
 	}
@@ -310,6 +342,14 @@ public class MBPsicologos implements Serializable {
 
 		}
 
+	}
+
+	public List<Cita> getListaPendientes() {
+		return listaPendientes;
+	}
+
+	public void setListaPendientes(List<Cita> listaPendientes) {
+		this.listaPendientes = listaPendientes;
 	}
 
 	public MBMensajes getMensajes() {

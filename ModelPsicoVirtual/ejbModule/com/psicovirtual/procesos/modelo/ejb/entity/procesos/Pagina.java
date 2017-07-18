@@ -2,6 +2,7 @@ package com.psicovirtual.procesos.modelo.ejb.entity.procesos;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -17,7 +18,7 @@ public class Pagina implements Serializable {
 
 	@Id
 	@Column(name="ID_PAGINA")
-	private int idPagina;
+	private BigDecimal idPagina;
 
 	private String accion;
 
@@ -32,11 +33,11 @@ public class Pagina implements Serializable {
 	public Pagina() {
 	}
 
-	public int getIdPagina() {
+	public BigDecimal getIdPagina() {
 		return this.idPagina;
 	}
 
-	public void setIdPagina(int idPagina) {
+	public void setIdPagina(BigDecimal idPagina) {
 		this.idPagina = idPagina;
 	}
 

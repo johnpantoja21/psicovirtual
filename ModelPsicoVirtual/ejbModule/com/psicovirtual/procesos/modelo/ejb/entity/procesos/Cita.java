@@ -2,8 +2,7 @@ package com.psicovirtual.procesos.modelo.ejb.entity.procesos;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.sql.Time;
-import java.util.Date;
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -18,17 +17,10 @@ public class Cita implements Serializable {
 
 	@Id
 	@Column(name="ID_CITA")
-	private int idCita;
+	private BigDecimal idCita;
 
 	@Column(name="ESTADO_PAGO")
 	private String estadoPago;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="FECHA_ASIGNADA")
-	private Date fechaAsignada;
-
-	@Column(name="HORA_ASIGNADA")
-	private Time horaAsignada;
 
 	@Column(name="HORA_CANTIDAD")
 	private int horaCantidad;
@@ -51,6 +43,11 @@ public class Cita implements Serializable {
 	@JoinColumn(name="ID_ESTADO_CLIE")
 	private EstadoCliente estadoCliente;
 
+	//bi-directional many-to-one association to Horario
+	@ManyToOne
+	@JoinColumn(name="ID_HORARIO")
+	private Horario horario;
+
 	//bi-directional many-to-one association to Servicio
 	@ManyToOne
 	@JoinColumn(name="ID_SERVICIO")
@@ -68,11 +65,11 @@ public class Cita implements Serializable {
 	public Cita() {
 	}
 
-	public int getIdCita() {
+	public BigDecimal getIdCita() {
 		return this.idCita;
 	}
 
-	public void setIdCita(int idCita) {
+	public void setIdCita(BigDecimal idCita) {
 		this.idCita = idCita;
 	}
 
@@ -82,22 +79,6 @@ public class Cita implements Serializable {
 
 	public void setEstadoPago(String estadoPago) {
 		this.estadoPago = estadoPago;
-	}
-
-	public Date getFechaAsignada() {
-		return this.fechaAsignada;
-	}
-
-	public void setFechaAsignada(Date fechaAsignada) {
-		this.fechaAsignada = fechaAsignada;
-	}
-
-	public Time getHoraAsignada() {
-		return this.horaAsignada;
-	}
-
-	public void setHoraAsignada(Time horaAsignada) {
-		this.horaAsignada = horaAsignada;
 	}
 
 	public int getHoraCantidad() {
@@ -138,6 +119,14 @@ public class Cita implements Serializable {
 
 	public void setEstadoCliente(EstadoCliente estadoCliente) {
 		this.estadoCliente = estadoCliente;
+	}
+
+	public Horario getHorario() {
+		return this.horario;
+	}
+
+	public void setHorario(Horario horario) {
+		this.horario = horario;
 	}
 
 	public Servicio getServicio() {

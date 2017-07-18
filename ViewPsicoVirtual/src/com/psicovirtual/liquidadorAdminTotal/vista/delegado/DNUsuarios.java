@@ -58,6 +58,10 @@ public class DNUsuarios {
 		return sBUsuariosLocal.listaClientePsicologo(id);
 	}
 
+	public List<ClientesPsicologo> listaPsicologoCliente(String id) throws Exception {
+		return sBUsuariosLocal.listaPsicologoCliente(id);
+	}
+
 	public List<Servicio> listaServiciosPsicologo(String id) throws Exception {
 		return sBUsuariosLocal.listaServiciosPsicologo(id);
 	}
@@ -89,10 +93,18 @@ public class DNUsuarios {
 	public List<Horario> listaHorarioPsicologo(Usuario user) throws Exception {
 		return sBUsuariosLocal.listaHorarioPsicologo(user);
 	}
-	
+
 	public List<Horario> listaHorarioPsicologoDisponible(Usuario user) throws Exception {
 		return sBUsuariosLocal.listaHorarioPsicoDisponibles(user);
 	}
 	
-
+	
+	public List<Cita> listaCitasPendientes(Usuario user) throws Exception {
+		return sBUsuariosLocal.listaCitasPendientes(user);
+	}
+	
+	public List<Cita> listaCitasPendientesCliente(Usuario user) throws Exception {
+		return sBUsuariosLocal.listaCitasPendientesCliente(user);
+	}
+	
 }

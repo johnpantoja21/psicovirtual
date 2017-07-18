@@ -87,7 +87,7 @@ public class MBUsuarios {
 	}
 
 	public void cargarUsuario(String user) throws Exception {
-		System.out.println("java " + user);
+		//System.out.println("java " + user);
 		if (dNUsuario == null) {
 			dNUsuario = new DNUsuarios();
 		}
@@ -210,7 +210,7 @@ public class MBUsuarios {
 							FacesContext context = FacesContext.getCurrentInstance();
 							ExternalContext extContext = context.getExternalContext();
 							String url2 = extContext.encodeActionURL(context.getApplication().getViewHandler()
-									.getActionURL(context, "/view/gestion/bienvenido.xhtml"));
+									.getActionURL(context, "/view/gestion/login.xhtml"));
 							extContext.redirect(url2);
 						} catch (Exception e) {
 							System.out.println("Error en el metodo iniciarSesion: " + e);
@@ -443,7 +443,7 @@ public class MBUsuarios {
 							FacesContext context = FacesContext.getCurrentInstance();
 							ExternalContext extContext = context.getExternalContext();
 							String url2 = extContext.encodeActionURL(context.getApplication().getViewHandler()
-									.getActionURL(context, "/view/gestion/bienvenido.xhtml"));
+									.getActionURL(context, "/view/gestion/login.xhtml"));
 							extContext.redirect(url2);
 						} catch (Exception e) {
 							System.out.println("Error en el metodo iniciarSesion: " + e);

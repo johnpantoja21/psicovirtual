@@ -1,0 +1,81 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/view/menu/template.xhtml">
+
+
+	<ui:define name="content">
+		<h:form id="formPrincipal">
+
+
+			<h2
+				style="text-align: center; font-size: 50px; color: inherit; font-family: 'BebasNeueRegular', Arial, sans-serif;">
+				Historia Clinica</h2>
+
+			<p:tabView id="tapView">
+
+				<p:tab id="tapRegistro" title="Registro">
+
+					<p:growl id="messages1" sticky="true" />
+
+					<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+						closable="false" resizable="false" showHeader="false">
+						<p:graphicImage library="images" name="ajax-loader.gif" />
+					</p:dialog>
+					<div align="center">
+
+
+						<h:panelGrid id="campos" columns="2" cellpadding="4">
+
+
+							<p:dataTable id="tbl" var="dato" selectionMode="single"
+								selection="#{MBHistoriaClinica.seleccionCita}"
+								rowKey="#{dato.idCita}"
+								value="#{MBHistoriaClinica.listCitasPagadas}">
+
+
+								<p:column headerText="Id Cita">
+									<h:outputText value="#{dato.idCita}" />
+								</p:column>
+
+								<p:column headerText="Nombres ">
+									<h:outputText value="#{dato.clientesPsicologo.usuario1.nombre}" />
+								</p:column>
+
+								<p:column headerText="Apellidos">
+									<h:outputText
+										value="#{dato.clientesPsicologo.usuario1.apellidos}" />
+								</p:column>
+
+								<p:column headerText="Fecha Citacion">
+									<h:outputText value="#{dato.horario.fechaInicial}">
+										<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT-5" />
+									</h:outputText>
+								</p:column>
+
+							</p:dataTable>
+
+
+
+							
+						</h:panelGrid>
+
+					</div>
+
+				</p:tab>
+
+
+
+			</p:tabView>
+
+
+		</h:form>
+
+
+
+
+	</ui:define>
+
+</ui:composition>

@@ -25,62 +25,92 @@
 
 		<h:form id="mainForm1">
 			<p:menubar>
-				<p:submenu label="Opciones" icon="ui-icon-document">
-					<p:submenu label="Gestion" icon="ui-icon-contact">
-						<p:menuitem value="Estado Cliente"
-							url="/view/gestion/estadoCliente.xhtml" />
-						<p:menuitem value="Estado Cita"
-							url="/view/gestion/estadoCita.xhtml" />
-						<p:menuitem value="Temas" url="/view/gestion/tema.xhtml" />
-						<p:menuitem value="Tipo Cita" url="/view/gestion/tipoCita.xhtml" />
-						<p:menuitem value="Tipos Servicio"
-							url="/view/gestion/tiposServicio.xhtml" />
-						<p:menuitem value="Tipo Usuario"
-							url="/view/gestion/tiposUsuario.xhtml" />
-						<p:menuitem value="Experiencias Pacientes"
-							url="/view/gestion/ExperienciasPsicologos.xhtml" />
-					</p:submenu>
-					<p:submenu label="Usuarios" icon="ui-icon-contact">
-
-						<p:menuitem value="Registro Clientes"
-							url="/view/usuarios/registroClientes.xhtml" />
-
-						<p:menuitem value="Registro Psicologos"
-							url="/view/usuarios/registroPsicologos.xhtml" />
-
-						<p:menuitem value="Modificar Usuario"
-							onstart="#{MBUsuarios.cargarUsuario(MBLogin.user)}"
-							url="/view/usuarios/modificarUsuario.xhtml" />
-
-
-					</p:submenu>
-					<p:submenu label="Psicologos" icon="ui-icon-contact">
-
-						<p:menuitem value="Busqueda Psicologos"
-							onstart="#{MBPsicologos.iniciar}"
-							url="/view/gestion/busquedaPsicologos.xhtml" />
-					</p:submenu>
 
 
 
-					<p:submenu label="Citas" icon="ui-icon-contact">
+				<p:submenu label="Gestion" rendered="#{MBLogin.gestion}"
+					icon="ui-icon-contact">
 
-						<p:menuitem value="Agendar Citas"
-							url="/view/gestion/agendarCita.xhtml" />
+					<p:menuitem value="Estado Cliente"
+						url="/view/gestion/estadoCliente.xhtml" />
 
+					<p:menuitem value="Estado Cita"
+						url="/view/gestion/estadoCita.xhtml" />
 
-						<p:menuitem value="Horarios"
-							onstart="#{MBPsicologos.cargarUsuario(MBLogin.user)}"
-							url="/view/gestion/horarios.xhtml" />
+					<p:menuitem value="Tipo Cita" url="/view/gestion/tipoCita.xhtml" />
 
-						<p:menuitem value="Agenda" url="/view/gestion/agenda.xhtml" />
+					<p:menuitem value="Tipos Servicio"
+						url="/view/gestion/tiposServicio.xhtml" />
 
+					<p:menuitem value="Tipo Usuario"
+						url="/view/gestion/tiposUsuario.xhtml" />
 
-					</p:submenu>
+				</p:submenu>
+				<p:submenu rendered="#{MBLogin.usuarios}" label="Citas"
+					icon="ui-icon-contact">
+
+					<p:menuitem value="Consulta Citas"
+						onstart="#{MBCita.cargarCitasPendienteCliente(MBLogin.user)}"
+						url="/view/gestion/Citas.xhtml" />
+
+					<p:menuitem value="Agendar Citas"
+						onstart="#{MBAgendarCita.cargar(MBLogin.user)}"
+						url="/view/gestion/agendarCita.xhtml" />
+
+					<p:menuitem value="Agenda"
+						onstart="#{MBAgendarCita.cargarUsuario(MBLogin.user)}"
+						url="/view/gestion/agendaCliente.xhtml" />
 
 				</p:submenu>
 
+				<p:menuitem value="Busqueda Psicologos"
+					rendered="#{MBLogin.usuarios}" onstart="#{MBPsicologos.iniciar}"
+					url="/view/gestion/busquedaPsicologos.xhtml" />
 
+
+				<p:menuitem value="Experiencias Pacientes"
+					rendered="#{MBLogin.usuarios}"
+					onstart="#{MBComentarios.cargarListados(MBLogin.user)}"
+					url="/view/gestion/ExperienciasPsicologos.xhtml" />
+
+
+				<p:submenu rendered="#{MBLogin.psicologos}" label="Citas"
+					icon="ui-icon-contact">
+
+					<p:menuitem value="Horarios"
+						onstart="#{MBPsicologos.cargarHorario(MBLogin.user)}"
+						url="/view/gestion/horarios.xhtml" />
+
+					<p:menuitem value="Agendar Citas Psicogolo"
+						onstart="#{MBAgendarCitaPsico.cargar(MBLogin.user)}"
+						url="/view/gestion/agendarCitaPsicologo.xhtml" />
+
+
+					<p:menuitem value="Agenda" url="/view/gestion/agenda.xhtml" onstart="#{MBPsicologos.cargarUsuario(MBLogin.user)}" />
+
+				</p:submenu>
+
+				<p:menuitem value="Servicios" rendered="#{MBLogin.psicologos}"
+					onstart="#{MBServicio.cargarDatos(MBLogin.user)}"
+					url="/view/gestion/Servicios.xhtml" />
+
+				<p:menuitem value="Historia Clinica" rendered="#{MBLogin.psicologos}"
+					onstart="#{MBHistoriaClinica.cargarCitadasPagadas(MBLogin.user)}"
+					url="/view/gestion/HistoriaClinica.xhtml" />
+
+
+
+				<p:menuitem value="Temas" url="/view/gestion/tema.xhtml"
+					rendered="#{MBLogin.psicologos}" />
+
+
+
+				<p:menuitem value="Consultorio Virtual"
+					url="/view/gestion/consultorio.xhtml" />
+
+				<p:menuitem value="Modificar Usuario"
+					onstart="#{MBUsuarios.cargarUsuario(MBLogin.user)}"
+					url="/view/usuarios/modificarUsuario.xhtml" />
 
 				<f:facet name="options">
 

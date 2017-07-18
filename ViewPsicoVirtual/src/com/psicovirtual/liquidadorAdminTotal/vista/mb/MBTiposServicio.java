@@ -43,7 +43,6 @@ public class MBTiposServicio {
 		if (dNTiposServicio == null) {
 			dNTiposServicio = new DNTiposServicio();
 		}
-		System.out.println("paso");
 		if (nombreTipo.length() > 0) {
 
 			TiposServicio insert = new TiposServicio();
@@ -66,6 +65,7 @@ public class MBTiposServicio {
 	}
 
 	public void limpiarModificar() {
+		System.out.println("saludos");
 		tipoServicioSeleccionado = null;
 
 		nombreTipoModificar = null;

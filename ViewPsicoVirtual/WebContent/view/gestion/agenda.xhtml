@@ -32,8 +32,7 @@
 					<h:panelGrid columnClasses="value">
 						<h3 style="margin-top: 0">Agenda</h3>
 						<p:schedule id="schedule" value="#{MBPsicologos.eventModel}"
-						       allDaySlot="true" slotMinutes="15"
-						timeZone="GMT-5"
+							allDaySlot="true" slotMinutes="15" timeZone="GMT-5"
 							widgetVar="myschedule" locale="tr">
 
 							<p:ajax event="eventSelect"
@@ -54,14 +53,16 @@
 							<p:outputLabel value="Fecha Inicio" />
 
 							<h:outputText value="#{MBPsicologos.event.startDate}">
-								<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"  timeZone="GMT-5"/>
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+									timeZone="GMT-5" />
 							</h:outputText>
 
 							<p:outputLabel value="Fecha Fin:" />
 
 
 							<h:outputText value="#{MBPsicologos.event.endDate}">
-								<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"  timeZone="GMT-5"/>
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+									timeZone="GMT-5" />
 							</h:outputText>
 
 
@@ -103,7 +104,8 @@
 						'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
 				dayNames : [ 'Lunes', 'Martes', 'Miercoles', 'Jueves',
 						'Viernes', 'Sabado', 'Domingo' ],
-				dayNamesShort : [ 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom' ],
+				dayNamesShort : [ 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab',
+						'Dom' ],
 				dayNamesMin : [ 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom' ],
 				weekHeader : 'Hf',
 				firstDay : 1,

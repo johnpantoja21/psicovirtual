@@ -2,6 +2,7 @@ package com.psicovirtual.procesos.modelo.ejb.entity.procesos;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -17,7 +18,7 @@ public class Comentario implements Serializable {
 
 	@Id
 	@Column(name="ID_COMENTARIO")
-	private int idComentario;
+	private BigDecimal idComentario;
 
 	private String estado;
 
@@ -25,8 +26,7 @@ public class Comentario implements Serializable {
 	@Column(name="FECHA_PUBLICACION")
 	private Date fechaPublicacion;
 
-	@Lob
-	private byte[] testimonio;
+	private String testimonio;
 
 	//bi-directional many-to-one association to ClientesPsicologo
 	@ManyToOne
@@ -36,11 +36,11 @@ public class Comentario implements Serializable {
 	public Comentario() {
 	}
 
-	public int getIdComentario() {
+	public BigDecimal getIdComentario() {
 		return this.idComentario;
 	}
 
-	public void setIdComentario(int idComentario) {
+	public void setIdComentario(BigDecimal idComentario) {
 		this.idComentario = idComentario;
 	}
 
@@ -60,11 +60,11 @@ public class Comentario implements Serializable {
 		this.fechaPublicacion = fechaPublicacion;
 	}
 
-	public byte[] getTestimonio() {
+	public String getTestimonio() {
 		return this.testimonio;
 	}
 
-	public void setTestimonio(byte[] testimonio) {
+	public void setTestimonio(String testimonio) {
 		this.testimonio = testimonio;
 	}
 

@@ -8,6 +8,7 @@
 		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.Cita</class>
 		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.ClientesPsicologo</class>
 		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.Comentario</class>
+		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.ConsultorioVirtual</class>
 		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.EstadoCita</class>
 		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.EstadoCliente</class>
 		<class>com.psicovirtual.procesos.modelo.ejb.entity.procesos.Festivo</class>

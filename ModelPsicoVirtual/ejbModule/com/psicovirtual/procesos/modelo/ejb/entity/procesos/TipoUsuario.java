@@ -2,6 +2,7 @@ package com.psicovirtual.procesos.modelo.ejb.entity.procesos;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -25,24 +26,27 @@ public class TipoUsuario implements Serializable {
 
 	private String nombre;
 
-	//bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy="tipoUsuario")
-	private List<Usuario> usuarios;
-
 	//bi-directional many-to-one association to PaginasPerfile
 	@OneToMany(mappedBy="tipoUsuario")
 	private List<PaginasPerfile> paginasPerfiles;
 
+	//bi-directional many-to-one association to Usuario
+	@OneToMany(mappedBy="tipoUsuario")
+	private List<Usuario> usuarios;
+
 	public TipoUsuario() {
 	}
 
+
 	public int getIdTipoUsu() {
-		return this.idTipoUsu;
+		return idTipoUsu;
 	}
+
 
 	public void setIdTipoUsu(int idTipoUsu) {
 		this.idTipoUsu = idTipoUsu;
 	}
+
 
 	public String getDescripcion() {
 		return this.descripcion;
@@ -68,28 +72,6 @@ public class TipoUsuario implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public List<Usuario> getUsuarios() {
-		return this.usuarios;
-	}
-
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-
-	public Usuario addUsuario(Usuario usuario) {
-		getUsuarios().add(usuario);
-		usuario.setTipoUsuario(this);
-
-		return usuario;
-	}
-
-	public Usuario removeUsuario(Usuario usuario) {
-		getUsuarios().remove(usuario);
-		usuario.setTipoUsuario(null);
-
-		return usuario;
-	}
-
 	public List<PaginasPerfile> getPaginasPerfiles() {
 		return this.paginasPerfiles;
 	}
@@ -110,6 +92,28 @@ public class TipoUsuario implements Serializable {
 		paginasPerfile.setTipoUsuario(null);
 
 		return paginasPerfile;
+	}
+
+	public List<Usuario> getUsuarios() {
+		return this.usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	public Usuario addUsuario(Usuario usuario) {
+		getUsuarios().add(usuario);
+		usuario.setTipoUsuario(this);
+
+		return usuario;
+	}
+
+	public Usuario removeUsuario(Usuario usuario) {
+		getUsuarios().remove(usuario);
+		usuario.setTipoUsuario(null);
+
+		return usuario;
 	}
 
 }

@@ -2,6 +2,7 @@ package com.psicovirtual.procesos.modelo.ejb.entity.procesos;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -17,7 +18,7 @@ public class Festivo implements Serializable {
 
 	@Id
 	@Column(name="ID_FESTIVO")
-	private int idFestivo;
+	private BigDecimal idFestivo;
 
 	private String estado;
 
@@ -27,11 +28,11 @@ public class Festivo implements Serializable {
 	public Festivo() {
 	}
 
-	public int getIdFestivo() {
+	public BigDecimal getIdFestivo() {
 		return this.idFestivo;
 	}
 
-	public void setIdFestivo(int idFestivo) {
+	public void setIdFestivo(BigDecimal idFestivo) {
 		this.idFestivo = idFestivo;
 	}
 

@@ -39,5 +39,9 @@ public class DNClientePsicologo {
 		return sBClientePsicologoLocal.consultarRelacionClientePsicologo(usuarioPsicologo, usuarioCliente);
 	}
 
+	public ClientesPsicologo buscarClientesPsicologo(Object id) throws Exception {
+		return sBClientePsicologoLocal.buscarClientesPsicologo(id);
+	}
+
 	
 }

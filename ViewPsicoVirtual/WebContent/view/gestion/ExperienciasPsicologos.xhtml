@@ -104,41 +104,6 @@
 						<p:panel id="datos">
 
 							<div class="ui-g">
-								<div class="ui-g-12 ui-md-6 ui-lg-3">
-									<h:outputText style="    font-weight: bold; "
-										value="Nombre Psicologo : " />
-								</div>
-
-								<div class="ui-g-12 ui-md-6 ui-lg-3">
-									<p:inputText id="d1" maxlength="100"
-										value="#{MBPsicologos.nombreBusqueda}">
-									</p:inputText>
-								</div>
-
-
-								<div class="ui-g-12 ui-md-6 ui-lg-3">
-									<h:outputText style="    font-weight: bold; "
-										value="Servicios : " />
-								</div>
-
-
-								<div class="ui-g-12 ui-md-6 ui-lg-3">
-									<p:inputText id="d2" maxlength="100"
-										value="#{MBPsicologos.servicioBusqueda}">
-									</p:inputText>
-								</div>
-
-
-								<div class="ui-g-12 ui-md-6 ui-lg-3">
-									<p:commandButton value="Buscar" style="width: 220px;"
-										onstart="PF('statusDialog').show();  "
-										update="formPrincipal,messages1"
-										oncomplete="PF('statusDialog').hide();"
-										action="#{MBPsicologos.buscar}" styleClass="btn btn-blue"
-										id="buscar">
-									</p:commandButton>
-
-								</div>
 
 								<div class="ui-g-12 ui-md-6 ui-lg-3"></div>
 								<div class="ui-g-12 ui-md-6 ui-lg-3"></div>
@@ -170,6 +135,11 @@
 
 											    Experiencia Psicologo :	<h:outputText
 													value="#{dato.clientesPsicologo.usuario2.nombre} #{dato.clientesPsicologo.usuario2.apellidos}"
+													style="font-weight: bold" />
+													
+													
+												Comentario:	<h:outputText
+													value="#{dato.testimonio}"
 													style="font-weight: bold" />
 
 											    Fecha Publicacion :	<h:outputText

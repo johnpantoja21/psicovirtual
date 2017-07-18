@@ -2,6 +2,7 @@ package com.psicovirtual.procesos.modelo.ejb.entity.procesos;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class Usuario implements Serializable {
 
 	@Id
 	@Column(name="ID_USUARIO")
-	private int idUsuario;
+	private BigDecimal idUsuario;
 
 	private String apellidos;
 
@@ -55,6 +56,10 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="usuario2")
 	private List<ClientesPsicologo> clientesPsicologos2;
 
+	//bi-directional many-to-one association to Horario
+	@OneToMany(mappedBy="usuario")
+	private List<Horario> horarios;
+
 	//bi-directional many-to-one association to Servicio
 	@OneToMany(mappedBy="usuario")
 	private List<Servicio> servicios;
@@ -64,18 +69,14 @@ public class Usuario implements Serializable {
 	@JoinColumn(name="ID_TIPO_USU")
 	private TipoUsuario tipoUsuario;
 
-	//bi-directional many-to-one association to Horario
-	@OneToMany(mappedBy="usuario")
-	private List<Horario> horarios;
-
 	public Usuario() {
 	}
 
-	public int getIdUsuario() {
+	public BigDecimal getIdUsuario() {
 		return this.idUsuario;
 	}
 
-	public void setIdUsuario(int idUsuario) {
+	public void setIdUsuario(BigDecimal idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 
@@ -219,6 +220,28 @@ public class Usuario implements Serializable {
 		return clientesPsicologos2;
 	}
 
+	public List<Horario> getHorarios() {
+		return this.horarios;
+	}
+
+	public void setHorarios(List<Horario> horarios) {
+		this.horarios = horarios;
+	}
+
+	public Horario addHorario(Horario horario) {
+		getHorarios().add(horario);
+		horario.setUsuario(this);
+
+		return horario;
+	}
+
+	public Horario removeHorario(Horario horario) {
+		getHorarios().remove(horario);
+		horario.setUsuario(null);
+
+		return horario;
+	}
+
 	public List<Servicio> getServicios() {
 		return this.servicios;
 	}
@@ -247,28 +270,6 @@ public class Usuario implements Serializable {
 
 	public void setTipoUsuario(TipoUsuario tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
-	}
-
-	public List<Horario> getHorarios() {
-		return this.horarios;
-	}
-
-	public void setHorarios(List<Horario> horarios) {
-		this.horarios = horarios;
-	}
-
-	public Horario addHorario(Horario horario) {
-		getHorarios().add(horario);
-		horario.setUsuario(this);
-
-		return horario;
-	}
-
-	public Horario removeHorario(Horario horario) {
-		getHorarios().remove(horario);
-		horario.setUsuario(null);
-
-		return horario;
 	}
 
 }

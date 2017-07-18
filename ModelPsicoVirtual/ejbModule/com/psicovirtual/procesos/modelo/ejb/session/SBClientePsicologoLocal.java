@@ -17,5 +17,5 @@ public interface SBClientePsicologoLocal {
 	public int verificarRelacionExistente(ClientesPsicologo relacion) throws Exception;
 	public int consultarRelacionClientePsicologo(String usuarioPsicologo, String usuarioCliente) throws Exception;
 	
-	
+  	public ClientesPsicologo buscarClientesPsicologo(Object id) throws Exception;
 }

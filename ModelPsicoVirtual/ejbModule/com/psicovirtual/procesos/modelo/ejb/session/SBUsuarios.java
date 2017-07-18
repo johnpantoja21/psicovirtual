@@ -99,7 +99,6 @@ public class SBUsuarios implements SBUsuariosLocal {
 
 		List<Usuario> listUsuario = sbFacade.executeQuery(query, null);
 		Usuario temp = new Usuario();
-		
 
 		for (int i = 0; i < listUsuario.size(); i++) {
 			temp = listUsuario.get(i);
@@ -113,6 +112,16 @@ public class SBUsuarios implements SBUsuariosLocal {
 		HashMap parametros = new HashMap();
 		parametros.put("id", new BigDecimal(id));
 		String query = "select o from ClientesPsicologo o where o.usuario1.idUsuario = :id";
+		List<ClientesPsicologo> lista = sbFacade.executeQuery(query, parametros);
+		return lista;
+	}
+
+	@Override
+	public List<ClientesPsicologo> listaPsicologoCliente(String id) throws Exception {
+
+		HashMap parametros = new HashMap();
+		parametros.put("id", new BigDecimal(id));
+		String query = "select o from ClientesPsicologo o where o.usuario2.idUsuario = :id";
 		List<ClientesPsicologo> lista = sbFacade.executeQuery(query, parametros);
 		return lista;
 	}
@@ -177,12 +186,27 @@ public class SBUsuarios implements SBUsuariosLocal {
 		Horario entity = (Horario) sbFacade.findByPrimaryKey(Horario.class, id);
 		return entity;
 	}
-	
 
 	@Override
 	public List<Horario> listaHorarioPsicoDisponibles(Usuario user) throws Exception {
-		String query = "select o from Horario o where o.usuario.idUsuario = '" + user.getIdUsuario() + "' and o.estado='ACTIVO' ";
+		String query = "select o from Horario o where o.usuario.idUsuario = '" + user.getIdUsuario()
+				+ "' and o.estado='ACTIVO' ";
 		List<Horario> lista = sbFacade.executeQuery(query, null);
+		return lista;
+	}
+	
+	
+	@Override
+	public List<Cita> listaCitasPendientes(Usuario user) throws Exception {
+		String query = "select o from Cita o where o.clientesPsicologo.usuario2.idUsuario = '" + user.getIdUsuario() + "' and o.estadoCita.idEstadoCita='1' ";
+		List<Cita> lista = sbFacade.executeQuery(query, null);
+		return lista;
+	}
+	
+	
+	public List<Cita> listaCitasPendientesCliente(Usuario user) throws Exception {
+		String query = "select o from Cita o where o.clientesPsicologo.usuario1.idUsuario = '" + user.getIdUsuario() + "' and o.estadoCita.idEstadoCita='1' ";
+		List<Cita> lista = sbFacade.executeQuery(query, null);
 		return lista;
 	}
 

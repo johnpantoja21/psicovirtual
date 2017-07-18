@@ -20,6 +20,7 @@ public interface SBUsuariosLocal {
 	public int consultarUsuarioRepetido(Usuario user) throws Exception;
 	public Usuario consultarDetalleUsuarioByUsuario(String usuario) throws Exception;
 	public List<ClientesPsicologo> listaClientePsicologo(String id) throws Exception;
+	public List<ClientesPsicologo> listaPsicologoCliente(String id) throws Exception;
 	public List<Servicio> listaServiciosPsicologo(String id) throws Exception;
 	public Cita guardarCita(Cita nuevo) throws Exception;
 	public List<Usuario> listarPsicologos() throws Exception;
@@ -34,6 +35,7 @@ public interface SBUsuariosLocal {
 			Horario horarioGuardar) throws Exception;
 	public List<Horario> listaHorarioPsicologo(Usuario user) throws Exception ;
 	public List<Horario> listaHorarioPsicoDisponibles(Usuario user) throws Exception;
-	
+	public List<Cita> listaCitasPendientes(Usuario user) throws Exception;
+	public List<Cita> listaCitasPendientesCliente(Usuario user) throws Exception;
 
 }

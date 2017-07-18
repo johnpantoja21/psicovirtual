@@ -8,6 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
 import com.psicovirtual.estandar.modelo.utilidades.Parametros;
 import com.psicovirtual.estandar.vista.utilidades.ServiceLocator;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.TiposServicio;
+import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Usuario;
 import com.psicovirtual.procesos.modelo.ejb.session.SBTiposServicioLocal;
 
 @ManagedBean(value = "DNTiposServicio")
@@ -35,6 +36,10 @@ public class DNTiposServicio {
 
 	public TiposServicio modificarTiposServicio(TiposServicio tiposServicioGuardar) throws Exception {
 		return sBTiposServicioLocal.modificarTiposServicio(tiposServicioGuardar);
+	}
+	
+	public List<TiposServicio> listaTiposServicioActivos() throws Exception {
+		return sBTiposServicioLocal.listaTiposServicioActivos();
 	}
 
 }

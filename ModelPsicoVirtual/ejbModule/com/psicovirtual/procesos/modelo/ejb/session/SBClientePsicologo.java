@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import com.psicovirtual.estandar.modelo.ejb.session.SBFacadeProcesosLocal;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Cita;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.ClientesPsicologo;
+import com.psicovirtual.procesos.modelo.ejb.entity.procesos.EstadoCita;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Horario;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Servicio;
 import com.psicovirtual.procesos.modelo.ejb.entity.procesos.TipoUsuario;
@@ -70,5 +71,12 @@ public class SBClientePsicologo implements SBClientePsicologoLocal {
 	}
 
 
+  	@Override
+  	public ClientesPsicologo buscarClientesPsicologo(Object id) throws Exception {
+
+  		ClientesPsicologo entity = (ClientesPsicologo) sbFacade.findByPrimaryKey(
+  				ClientesPsicologo.class, id);
+  		return entity;
+  	}
 
 }
