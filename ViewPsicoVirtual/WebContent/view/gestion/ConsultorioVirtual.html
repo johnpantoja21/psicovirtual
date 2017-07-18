@@ -30,8 +30,8 @@
         border-bottom-left-radius: 0;
         border-top-left-radius: 0;
         font-size: 102%;
-        height: 47px;
-        margin-left: -9px;
+        height: 39px;
+        margin-left: 8px;
         margin-top: 8px;
         position: absolute;
     }
@@ -96,7 +96,7 @@
             <section>
        
                 <input type="text" id="conference-name"/>
-                <button id="setup-new-conference" class="setup">Crear VideoConferencia</button>
+                <button id="setup-new-conference" class="setup">Crear Video Conferencia</button>
                 <button id="leave-conference" class="setup" style="margin-left: 13em;" >Salir</button>
             </section>
             
@@ -186,8 +186,8 @@
             if (sessions[session.sessionid]) return;
             sessions[session.sessionid] = session;
             var tr = document.createElement('tr');
-            tr.innerHTML = '<td><strong>' + session.extra['session-name'] + '</strong> is running a conference!</td>' +
-                '<td><button class="join">Join</button></td>';
+            tr.innerHTML = '<td style="width: 15%" ><strong>' + session.extra['session-name'] + '</strong> creo una video conferencia!</td>' +
+                '<td><button class="join">Ingresar</button></td>';
             roomsList.insertBefore(tr, roomsList.firstChild);
             var joinRoomButton = tr.querySelector('.join');
             joinRoomButton.setAttribute('data-sessionid', session.sessionid);
