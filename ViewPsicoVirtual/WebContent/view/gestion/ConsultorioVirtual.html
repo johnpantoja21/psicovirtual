@@ -118,7 +118,7 @@
             appendVideo(e.mediaElement, e.streamid);
         };
         function appendVideo(video, streamid) {
-            video.width = 600;
+            video.width = 800;
             video = getVideo(video, streamid);
             videosContainer.insertBefore(video, videosContainer.firstChild);
             rotateVideo(video);
@@ -130,28 +130,28 @@
             div.className = 'video-container';
             var button = document.createElement('button');
             button.id = streamid;
-            button.innerHTML = 'Start Recording';
+            button.innerHTML = 'Iniciar Grabación';
             button.onclick = function() {
                 this.disabled = true;
-                if (this.innerHTML == 'Start Recording') {
-                    this.innerHTML = 'Stop Recording';
+                if (this.innerHTML == 'Iniciar Grabación') {
+                    this.innerHTML = 'Parar Grabación';
                     connection.streams[this.id].startRecording({
                         audio: true,
                         video: true
                     });
                 } else {
-                    this.innerHTML = 'Start Recording';
+                    this.innerHTML = 'Iniciar Grabación';
                     var stream = connection.streams[this.id];
                     stream.stopRecording(function(blob) {
                         var h2;
                         if (blob.audio && !(connection.UA.Chrome && stream.type == 'remote')) {
                             h2 = document.createElement('h2');
-                            h2.innerHTML = '<a href="' + URL.createObjectURL(blob.audio) + '" target="_blank">Open recorded ' + blob.audio.type + '</a>';
+                            h2.innerHTML = '<a href="' + URL.createObjectURL(blob.audio) + '" target="_blank">Abrir Grabación ' + blob.audio.type + '</a>';
                             div.appendChild(h2);
                         }
                         if (blob.video) {
                             h2 = document.createElement('h2');
-                            h2.innerHTML = '<a href="' + URL.createObjectURL(blob.video) + '" target="_blank">Open recorded ' + blob.video.type + '</a>';
+                            h2.innerHTML = '<a href="' + URL.createObjectURL(blob.video) + '" target="_blank">Abrir Grabación ' + blob.video.type + '</a>';
                             div.appendChild(h2);
                         }
                     });
@@ -218,7 +218,7 @@
         (function() {
             var uniqueToken = document.getElementById('unique-token');
             if (uniqueToken)
-                if (location.hash.length > 2) uniqueToken.parentNode.parentNode.parentNode.innerHTML = '<h2 style="text-align:center;"><a href="' + location.href + '" target="_blank">Share this link</a></h2>';
+                if (location.hash.length > 2) uniqueToken.parentNode.parentNode.parentNode.innerHTML = '<h2 style="text-align:center;"><a href="' + location.href + '" target="_blank">Compartir este Link</a></h2>';
                 else uniqueToken.innerHTML = uniqueToken.parentNode.parentNode.href = '#' + (Math.random() * new Date().getTime()).toString(36).toUpperCase().replace(/\./g, '-');
         })();
         function scaleVideos() {
@@ -226,8 +226,8 @@
                 length = videos.length,
                 video;
             var minus = 130;
-            var windowHeight = 700;
-            var windowWidth = 600;
+            var windowHeight = 800;
+            var windowWidth = 700;
             var windowAspectRatio = windowWidth / windowHeight;
             var videoAspectRatio = 4 / 3;
             var blockAspectRatio;
