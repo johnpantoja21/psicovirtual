@@ -130,13 +130,13 @@ public class MBPsicologos implements Serializable {
 		if (dNUsuario == null) {
 			dNUsuario = new DNUsuarios();
 		}
-		System.out.println("Ingreso 1");
+	
 		Usuario usuarioModificar = dNUsuario.consultarDetalleUsuarioByUsuario(user);
-		System.out.println("Ingreso 2");
+		
 		psicologoSelecionado = usuarioModificar;
-		System.out.println("Ingreso 3");
+		
 		listaPendientes = dNUsuario.listaCitasPendientes(psicologoSelecionado);
-		System.out.println("Ingreso 4");
+		
 		eventModel = new DefaultScheduleModel();
 		for (int i = 0; i < listaPendientes.size(); i++) {
 

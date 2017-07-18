@@ -1,5 +1,7 @@
 package com.psicovirtual.procesos.modelo.ejb.session;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -53,11 +55,17 @@ public class SBHistoriaClinica implements SBHistoriaClinicaLocal {
 
 	@Override
 	public List<Cita> consultarCitasPagadasClientePsico(Usuario user) throws Exception {
-		Date date = new Date();
-		String query = "select o from Cita o where o.clientesPsicologo.usuario2.idUsuario='" + user.getIdUsuario()
-				+ "' and o.estadoCita.idEstadoCita='2' " + "and o.horario.fechaInicial<='" + date.getDate() + "' ";
 
-		System.out.println("Sql -->> " + query);
+		// SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+		// Date date2 = formatter.parse(formatter.format(date));
+
+		Timestamp timeStamp = new Timestamp(System.currentTimeMillis());
+		Date date = new java.sql.Date(timeStamp.getTime());
+
+		String query = "select o from Cita o where o.clientesPsicologo.usuario2.idUsuario='" + user.getIdUsuario()
+				+ "' and o.estadoCita.idEstadoCita='2' " + "and o.horario.fechaInicial<='" + date + "' ";
+
 		List<Cita> lista = sbFacade.executeQuery(query, null);
 		return lista;
 	}
