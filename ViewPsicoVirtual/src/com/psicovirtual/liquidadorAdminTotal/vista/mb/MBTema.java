@@ -14,12 +14,12 @@ import com.psicovirtual.procesos.modelo.ejb.entity.procesos.Tema;
 public class MBTema {
 	MBMensajes mensajes = new MBMensajes();
 
-	DNTema dNTema;
+
 
 	private String descripcion;
 
 	private String descripcionModificar;
-
+	DNTema dNTema;
 	private List<Tema> listaTema;
 	private Tema temaSeleccionado;
 	private String estadoModificar;

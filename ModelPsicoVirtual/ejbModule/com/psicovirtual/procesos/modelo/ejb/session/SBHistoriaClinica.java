@@ -47,8 +47,8 @@ public class SBHistoriaClinica implements SBHistoriaClinicaLocal {
 
 	@Override
 	public List<SeccionHistorial> buscarHistoriaClinicaCiente(Usuario user) throws Exception {
-		String query = "select o from SeccionHistorial o where o.cita.clientesPsicologo.usuario1.idUsuario='"
-				+ user.getIdUsuario() + "' ";
+		String query = "select o from SeccionHistorial o where o.cita.clientesPsicologo.usuario2.idUsuario='"
+				+ user.getIdUsuario() + "' order by o.cita.clientesPsicologo.usuario1.idUsuario,o.fechaHistorial desc";
 		List<SeccionHistorial> lista = sbFacade.executeQuery(query, null);
 		return lista;
 	}

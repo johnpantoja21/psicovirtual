@@ -10,15 +10,15 @@
 		<h:form id="formPrincipal">
 
 
-<div class="container" style="text-align: center;">
-			<div class="brand" style="text-align: center;">
-				<h1 class="brand_name">
-					<a href="./">Psicovirtual</a>
-				</h1>
-				<p class="brand_slogan">Experiencias Blog</p>
+			<div class="container" style="text-align: center;">
+				<div class="brand" style="text-align: center;">
+					<h1 class="brand_name">
+						<a href="./">Psicovirtual</a>
+					</h1>
+					<p class="brand_slogan">Experiencias Blog</p>
+				</div>
 			</div>
-		</div>
-		
+
 
 			<p:tabView id="tapView">
 
@@ -37,14 +37,6 @@
 						<div class="ui-g">
 							<div class="ui-g-12 ui-md-12">
 
-
-
-
-
-
-
-
-
 								<p:dataTable id="tbl" var="dato" selectionMode="single"
 									selection="#{MBComentarios.clientesPsicologoSeleccionado}"
 									filteredValue="#{MBComentarios.listaFiltrosClientesPsicologo}"
@@ -53,9 +45,9 @@
 
 									<f:facet name="header">
     					   Psicologos Relacionados con tu perfil
-   				        </f:facet>>
+   				        </f:facet>
 
-								<p:column headerText="Nombres "
+									<p:column headerText="Nombres "
 										filterBy="#{dato.usuario2.nombre}">
 										<h:outputText value="#{dato.usuario2.nombre}" />
 									</p:column>
@@ -144,8 +136,7 @@
 													style="font-weight: bold" />
 													
 													
-												Comentario:	<h:outputText
-													value="#{dato.testimonio}"
+												Comentario:	<h:outputText value="#{dato.testimonio}"
 													style="font-weight: bold" />
 
 											    Fecha Publicacion :	<h:outputText

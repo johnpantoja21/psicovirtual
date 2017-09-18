@@ -45,6 +45,7 @@ public class MBAgendarCita {
 	DNTipoCita dNTipoCita;
 	DNEstadoCliente dNEstadoCliente;
 
+	
 	private String usuarioCliente;
 
 	private List<ClientesPsicologo> listaClientesPsicologo;

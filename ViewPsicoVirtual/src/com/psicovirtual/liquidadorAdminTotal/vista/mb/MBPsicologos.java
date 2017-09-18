@@ -58,6 +58,7 @@ public class MBPsicologos implements Serializable {
 	private String servicioBusqueda;
 
 	private Usuario psicologoSelecionado;
+	private Usuario psicologoSelecionadoInfo;
 
 	private Date fechaInicial;
 	private Date fechaFinal;
@@ -218,7 +219,10 @@ public class MBPsicologos implements Serializable {
 
 	public void masInformacion(Usuario parameterUsuario) {
 		// psicologoSelecionado = null;
-		psicologoSelecionado = parameterUsuario;
+		
+		System.out.println("Nombre "+parameterUsuario.getNombre());
+		
+		 psicologoSelecionadoInfo = parameterUsuario;
 
 		try {
 			FacesContext context = FacesContext.getCurrentInstance();
@@ -342,6 +346,16 @@ public class MBPsicologos implements Serializable {
 
 		}
 
+	}
+	
+	
+
+	public Usuario getPsicologoSelecionadoInfo() {
+		return psicologoSelecionadoInfo;
+	}
+
+	public void setPsicologoSelecionadoInfo(Usuario psicologoSelecionadoInfo) {
+		this.psicologoSelecionadoInfo = psicologoSelecionadoInfo;
 	}
 
 	public List<Cita> getListaPendientes() {

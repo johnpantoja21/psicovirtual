@@ -210,7 +210,7 @@ public class MBUsuarios {
 							FacesContext context = FacesContext.getCurrentInstance();
 							ExternalContext extContext = context.getExternalContext();
 							String url2 = extContext.encodeActionURL(context.getApplication().getViewHandler()
-									.getActionURL(context, "/view/gestion/login.xhtml"));
+									.getActionURL(context, "/view/login.xhtml"));
 							extContext.redirect(url2);
 						} catch (Exception e) {
 							System.out.println("Error en el metodo iniciarSesion: " + e);
@@ -443,7 +443,7 @@ public class MBUsuarios {
 							FacesContext context = FacesContext.getCurrentInstance();
 							ExternalContext extContext = context.getExternalContext();
 							String url2 = extContext.encodeActionURL(context.getApplication().getViewHandler()
-									.getActionURL(context, "/view/gestion/login.xhtml"));
+									.getActionURL(context, "/view/login.xhtml"));
 							extContext.redirect(url2);
 						} catch (Exception e) {
 							System.out.println("Error en el metodo iniciarSesion: " + e);
